@@ -1,0 +1,8 @@
+.codex/
+.DS_Store
+**/node_modules/
+**/lib/
+*.tsbuildinfo
+*-preview.png
+pet-companion-in-app.png
+

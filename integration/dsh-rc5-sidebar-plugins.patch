@@ -1,0 +1,118 @@
+diff --git a/packages/bundle/web-app/cordis.patch.yml b/packages/bundle/web-app/cordis.patch.yml
+index b06e63b54f..547ed71fd0 100644
+--- a/packages/bundle/web-app/cordis.patch.yml
++++ b/packages/bundle/web-app/cordis.patch.yml
+@@ -192,8 +192,40 @@
+     - id: ui-settings-models
+       name: '@deepseek-ai/dsh-client-ui-settings-models'
+ 
+     - id: ui-settings-plugin-inventory
+       name: '@deepseek-ai/dsh-client-ui-settings-plugin-inventory'
+ 
++    # Taskboard surface: sidebar entry + embedded Codex Taskboard panel.
++    - id: ui-taskboard
++      name: '@deepseek-ai/dsh-client-ui-taskboard'
++
++    # Browser-only Token poker table in the main area.
++    - id: ui-token-poker
++      name: '@deepseek-ai/dsh-client-ui-token-poker'
++
++    # Browser-only teacher workbench in the main area.
++    - id: ui-teacher-workbench
++      name: '@deepseek-ai/dsh-client-ui-teacher-workbench'
++
++    # Task-aware virtual pet and local care panel.
++    - id: ui-pet-companion
++      name: '@deepseek-ai/dsh-client-ui-pet-companion'
++
++    # Browser-only sales workbench in the main area.
++    - id: ui-sales-workbench
++      name: '@deepseek-ai/dsh-client-ui-sales-workbench'
++
++    # Browser-only personal workbench in the main area.
++    - id: ui-personal-workbench
++      name: '@deepseek-ai/dsh-client-ui-personal-workbench'
++
++    # Browser-only classic QQ chat surface in the main area.
++    - id: ui-qq-chat
++      name: '@deepseek-ai/dsh-client-ui-qq-chat'
++
++    # Browser-only Feishu chat surface over real projects and conversations.
++    - id: ui-feishu-chat
++      name: '@deepseek-ai/dsh-client-ui-feishu-chat'
++
+     - id: ui-conversation
+       name: '@deepseek-ai/dsh-client-ui-conversation'
+diff --git a/packages/bundle/web-app/package.json b/packages/bundle/web-app/package.json
+index ca4709a2a9..e4061d0b92 100644
+--- a/packages/bundle/web-app/package.json
++++ b/packages/bundle/web-app/package.json
+@@ -68,10 +68,18 @@
+     "@deepseek-ai/dsh-client-ui-permission-presets": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-plan": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-settings-plugins": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-user-questions": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-settings": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-settings-general": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-taskboard": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-token-poker": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-teacher-workbench": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-pet-companion": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-sales-workbench": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-personal-workbench": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-qq-chat": "workspace:^",
++    "@deepseek-ai/dsh-client-ui-feishu-chat": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-sidebar": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-skill": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-input-trigger": "workspace:^",
+     "@deepseek-ai/dsh-client-ui-subagent": "workspace:^",
+diff --git a/tsconfig.client.json b/tsconfig.client.json
+index e599f76f1b..65f0f633fe 100644
+--- a/tsconfig.client.json
++++ b/tsconfig.client.json
+@@ -89,8 +89,16 @@
+     { "path": "./packages/client/ui-theme" },
+     { "path": "./packages/client/ui-settings" },
+     { "path": "./packages/client/ui-settings-general" },
+     { "path": "./packages/client/ui-settings-models" },
+     { "path": "./packages/client/ui-settings-plugin-inventory" },
++    { "path": "./packages/client/ui-taskboard" },
++    { "path": "./packages/client/ui-token-poker" },
++    { "path": "./packages/client/ui-teacher-workbench" },
++    { "path": "./packages/client/ui-pet-companion" },
++    { "path": "./packages/client/ui-sales-workbench" },
++    { "path": "./packages/client/ui-personal-workbench" },
++    { "path": "./packages/client/ui-qq-chat" },
++    { "path": "./packages/client/ui-feishu-chat" },
+     { "path": "./packages/client/locale" },
+     { "path": "./packages/client/web" },
+     { "path": "./apps/web" }
+diff --git a/packages/client/ui-sidebar/src/client/SidebarRoot.module.css b/packages/client/ui-sidebar/src/client/SidebarRoot.module.css
+index 300075b88d..5f50392d38 100644
+--- a/packages/client/ui-sidebar/src/client/SidebarRoot.module.css
++++ b/packages/client/ui-sidebar/src/client/SidebarRoot.module.css
+@@ -256,8 +256,12 @@
+   width: 100%;
+ }
+ 
++/* Actions stack vertically (full-width rows like Settings); a row direction
++   would lay two full-width occupants side by side and push them out of the
++   column. */
+ .footerActions {
+   display: flex;
++  flex-direction: column;
+ }
+ 
+ .collapsed .footArea {
+@@ -271,6 +275,11 @@
+   width: auto;
+ }
+ 
++/* The rail keeps each action's icon centered under the column stack. */
++.collapsed .footerActions {
++  align-items: center;
++}
++
+ @media (prefers-reduced-motion: reduce) {
+   .wide,
+   .fading > *,

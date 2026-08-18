@@ -1,0 +1,189 @@
+/* Taskboard surface: sidebar-foot entry + right-docked side tab embedding the
+   local Codex Taskboard service. The trigger reuses the sidebar's compact
+   row / 36px rail circle rhythm (settings trigger precedent); the dock is a
+   fixed full-height right column over the conversation (no mask), with a
+   54px header and an iframe body. */
+
+/* Trigger row: match the other wide sidebar controls' compact rhythm. */
+.trigger {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: calc(100% + 8px);
+  height: 34px;
+  margin: 4px -4px 4px;
+  padding: 6px 2px 6px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--dsw-alias-label-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.trigger:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+/* Rail trigger: the same 36x36 circle box as the other rail controls. */
+.trigger.rail {
+  width: 36px;
+  height: 36px;
+  margin: 8px 0 10px;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.triggerLabel {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* The center-area takeover: fixed layer pinned to the layout's center column
+   (all four edges inline, measured from the centerCol element). Sits below
+   the modal layer (z-index 1000) so dialogs can still cover it. */
+.dock {
+  position: fixed;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-left: 1px solid var(--dsw-alias-border-l2);
+  background: var(--dsw-alias-bg-layer-2);
+  box-shadow: var(--dsw-shadow-lv3);
+  animation: dsh-taskboard-slide-in 180ms ease-out;
+  /* Elevated surface: the scrollbar thumb takes the l2 elevation tokens. */
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+}
+
+@keyframes dsh-taskboard-slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Header: 54px row, title left, actions right. */
+.header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 54px;
+  padding: 10px 14px 8px 18px;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-primary);
+}
+
+.actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Header action button: 28x28, r28, 14px glyph (close-button precedent). */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 28px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--dsw-alias-label-primary);
+}
+
+.action:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+/* Embedded app body. */
+.frame {
+  flex: 1;
+  min-height: 0;
+  border: none;
+  background: white;
+}
+
+/* Offline state: centered column. */
+.offline {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+}
+
+.offlineIcon {
+  color: var(--dsw-alias-state-warn-primary);
+}
+
+.offlineTitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-primary);
+}
+
+.offlineHint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.retry {
+  margin-top: 8px;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--dsw-alias-button-primary-fill);
+  cursor: pointer;
+  color: var(--dsw-alias-label-primary-foreground);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.retry:hover {
+  filter: brightness(0.96);
+}
+
+/* Visually-hidden text seat (action accessible names from the label). */
+.hiddenLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
