@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"><style>body{margin:0}a{color:#8ea2ff}a:hover{color:#b7c4ff}@keyframes dsh-spin{to{transform:rotate(360deg)}}@keyframes dsh-pulse{0%,100%{opacity:1}50%{opacity:.35}}</style></helmet>
+<div style="width:1440px;height:900px;display:flex;overflow:hidden;background:#171a2b;font-family:'Nunito','Noto Sans SC',system-ui,sans-serif">
+
+  <sc-if value="{{ showSidebar }}" hint-placeholder-val="{{ true }}">
+  <div style="width:232px;flex:none;display:flex;flex-direction:column;background:#fafafa;border-right:1px solid #e9e9e9;color:#303030;font-family:'Noto Sans SC',system-ui,sans-serif">
+    <div style="display:flex;align-items:center;gap:8px;padding:16px 14px 10px">
+      <div style="width:22px;height:22px;border-radius:6px;background:#4d6bfe"></div>
+      <div style="font-size:13px;font-weight:600">DeepSeek Harness</div>
+    </div>
+    <div style="margin:2px 12px 12px;height:34px;border:1px solid #e2e2e2;border-radius:10px;background:#fff;display:flex;align-items:center;gap:7px;padding:0 11px;font-size:12.5px;color:#4d6bfe;font-weight:500">＋ 新建对话</div>
+    <div style="padding:0 16px 6px;font-size:10.5px;color:#a0a0a0;letter-spacing:.06em">今天</div>
+    <div style="display:flex;flex-direction:column;gap:2px;padding:0 8px">
+      <div style="height:30px;border-radius:8px;padding:0 10px;display:flex;align-items:center;font-size:12.5px;color:#5c5c5c">推理链路压测记录</div>
+      <div style="height:30px;border-radius:8px;padding:0 10px;display:flex;align-items:center;font-size:12.5px;color:#5c5c5c">KV Cache 命中率分析</div>
+      <div style="height:30px;border-radius:8px;padding:0 10px;display:flex;align-items:center;font-size:12.5px;color:#5c5c5c">插件面板改版讨论</div>
+    </div>
+    <div style="flex:1"></div>
+    <div style="height:1px;background:#ececec;margin:0 12px 8px"></div>
+    <div style="display:flex;flex-direction:column;gap:1px;padding:0 8px 12px">
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">▤</span>任务面板</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">⌗</span>节点工作流</div>
+      <div style="height:34px;border-radius:12px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:#fff;background:#4d6bfe;box-shadow:0 8px 16px rgba(77,107,254,.32)"><span style="width:16px;text-align:center">♠</span>Token 德州</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">✎</span>教师工作台</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">◕</span>QQ 宠物</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">▲</span>销售工作台</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">◻</span>个人工作台</div>
+      <div style="height:32px;border-radius:9px;padding:0 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#4a4a4a"><span style="width:16px;text-align:center;opacity:.6">✉</span>飞书聊天</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <div data-screen-label="{{ screenLabel }}" style="flex:1;min-width:0;position:relative;overflow:hidden;background:radial-gradient(110% 80% at 50% 34%,#262b47 0%,#1b1e30 62%,#171a2b 100%);color:#e9ecf7">
+
+    <div style="position:absolute;left:34px;right:34px;top:26px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:13px">
+        <div style="width:44px;height:44px;border-radius:15px;background:linear-gradient(180deg,#6a83ff,#3f5cf0);box-shadow:0 10px 18px rgba(63,92,240,.35),inset 0 1px 0 rgba(255,255,255,.32);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff">♠</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:19px;font-weight:800;letter-spacing:.01em">Token 德州</div>
+          <div style="font-size:12px;font-weight:600;color:rgba(233,236,247,.45)">推理无限注 · 0.5 / 1 MToken · 6 人桌</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="padding:8px 14px;border-radius:11px;background:#1e2237;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 6px 12px rgba(0,0,0,.28);font-size:12.5px;font-weight:700;color:rgba(233,236,247,.6)">牌局 #821</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 15px;border-radius:11px;background:{{ inviteBg }};box-shadow:{{ inviteSh }};font-size:12.5px;font-weight:700;color:{{ inviteInk }}"><span style="width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1.5px {{ inviteDot }};display:block"></span>{{ inviteLabel }}</div>
+        <div style="width:38px;height:38px;border-radius:11px;background:#282e49;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 14px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(233,236,247,.7)">↻</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:8px 15px;border-radius:11px;background:#1e2237;box-shadow:inset 0 0 0 1px rgba(233,236,247,.14);font-size:12.5px;font-weight:700;color:rgba(233,236,247,.75)">离开牌桌<span style="padding:2px 6px;border-radius:5px;background:rgba(233,236,247,.1);font-size:10px;font-weight:700;color:rgba(233,236,247,.5)">ESC</span></div>
+      </div>
+    </div>
+
+    <div style="position:absolute;left:34px;right:34px;top:96px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:rgba(233,236,247,.6)"><span style="width:9px;height:9px;border-radius:50%;background:#8ce06a;box-shadow:0 0 10px rgba(140,224,106,.7);display:block"></span>{{ roomText }}</div>
+      <div style="display:flex;align-items:center;gap:6px;padding:5px;border-radius:12px;background:#1e2237;box-shadow:inset 0 1px 3px rgba(0,0,0,.4)">
+        <sc-for list="{{ streets }}" as="st" hint-placeholder-count="4">
+          <span style="padding:5px 14px;border-radius:9px;background:{{ st.bg }};box-shadow:{{ st.sh }};font-size:12px;font-weight:{{ st.fw }};color:{{ st.c }}">{{ st.label }}</span>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:{{ statusColor }}"><span style="width:9px;height:9px;border-radius:50%;background:{{ statusColor }};box-shadow:0 0 10px {{ statusGlow }};display:block"></span>{{ statusText }}</div>
+    </div>
+
+    <div style="position:absolute;left:224px;top:200px;width:760px;height:344px;border-radius:999px;background:linear-gradient(160deg,#3a4168 0%,#2e3452 55%,#282d46 100%);box-shadow:24px 28px 56px rgba(0,0,0,.5),-16px -18px 40px rgba(255,255,255,.03),inset 0 2px 0 rgba(255,255,255,.08)"></div>
+    <div style="position:absolute;left:258px;top:230px;width:692px;height:284px;border-radius:999px;background:#212642;box-shadow:inset 0 12px 26px rgba(0,0,0,.55),inset 0 -2px 0 rgba(255,255,255,.05)"></div>
+    <div style="position:absolute;left:272px;top:242px;width:664px;height:260px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(141,160,255,.1),inset 0 0 60px rgba(77,107,254,.12)"></div>
+
+    <div style="position:absolute;left:50%;top:262px;transform:translateX(-50%);display:flex;align-items:baseline;gap:11px">
+      <span style="font-size:13px;font-weight:700;color:rgba(233,236,247,.45)">{{ potLabel }}</span>
+      <span style="font-size:38px;font-weight:800;color:#d9f24b;line-height:1;letter-spacing:-.01em">{{ pot }}</span>
+      <span style="font-size:14px;font-weight:700;color:rgba(217,242,75,.55)">tokens</span>
+    </div>
+
+    <div style="position:absolute;left:50%;top:326px;transform:translateX(-50%);display:flex;gap:13px">
+      <sc-for list="{{ board }}" as="cd" hint-placeholder-count="5">
+        <div style="position:relative;width:76px;height:106px;border-radius:11px;overflow:hidden;background:{{ cd.bg }};color:{{ cd.color }};box-shadow:{{ cd.sh }}">
+
+          <sc-if value="{{ cd.plain }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-7px;bottom:-6px;width:70px;height:70px">
+              <clipPath id="{{ cd.cid }}"><path d="{{ cd.path }}"></path></clipPath>
+              <g clip-path="{{ cd.clip }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g>
+            </svg>
+            <div style="position:absolute;top:7px;left:9px;font:800 27px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ cd.r }}</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:35px;left:10px;width:13px;height:13px"><path d="{{ cd.path }}" fill="currentColor"></path></svg>
+          </sc-if>
+
+          <sc-if value="{{ cd.filled }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;background:currentColor"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-7px;bottom:-6px;width:70px;height:70px;color:#fff;opacity:.2">
+              <clipPath id="{{ cd.cid }}"><path d="{{ cd.path }}"></path></clipPath>
+              <g clip-path="{{ cd.clip }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g>
+            </svg>
+            <div style="position:absolute;top:7px;left:9px;color:#fff;font:800 27px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ cd.r }}</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:35px;left:10px;width:13px;height:13px;color:#fff"><path d="{{ cd.path }}" fill="currentColor"></path></svg>
+          </sc-if>
+
+          <sc-if value="{{ cd.back }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:5px;border-radius:7px;overflow:hidden;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px)"></div>
+            <div style="position:absolute;inset:5px;border-radius:7px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(8,26,66,.5) 84%)"></div>
+            <div style="position:absolute;inset:5px;border-radius:7px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:25px;height:25px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;background:#0E2E6B"></div>
+            <div style="position:absolute;top:50%;left:50%;width:19px;height:19px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;border:1.5px solid rgba(255,255,255,.5)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:12px;height:12px;transform:translate(-50%,-50%) rotate(45deg);border-radius:3px;background:#F1EDE3"></div>
+          </sc-if>
+
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="2">
+      <div style="position:absolute;{{ ch.pos }};display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:#d9f24b;box-shadow:0 10px 18px rgba(0,0,0,.4);font-size:13px;font-weight:800;color:#1b1e30"><span style="width:13px;height:13px;border-radius:50%;background:#1b1e30;display:block"></span>{{ ch.amt }}</div>
+    </sc-for>
+
+    <sc-for list="{{ seats }}" as="seat" hint-placeholder-count="5">
+
+      <sc-if value="{{ seat.isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;{{ seat.pos }};display:flex;align-items:center;gap:11px;padding:9px 16px 9px 10px;border-radius:18px;border:1.5px dashed rgba(233,236,247,.22);background:rgba(30,34,55,.5)">
+          <span style="width:38px;height:38px;border-radius:13px;background:rgba(233,236,247,.06);box-shadow:inset 0 0 0 1.5px rgba(233,236,247,.14);display:flex;align-items:center;justify-content:center;font-size:17px;color:rgba(233,236,247,.3)">＋</span>
+          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13.5px;font-weight:800;color:rgba(233,236,247,.45)">空座位</span><span style="font-size:11.5px;font-weight:600;color:rgba(233,236,247,.3)">等待加入</span></span>
+          <span style="padding:5px 11px;border-radius:9px;background:#4d6bfe;box-shadow:0 6px 14px rgba(77,107,254,.4);font-size:11.5px;font-weight:800;color:#fff">邀请</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ seat.isPlayer }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;{{ seat.pos }};display:flex;flex-direction:column;gap:7px;align-items:{{ seat.align }}">
+
+          <sc-if value="{{ seat.winner }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:7px;padding:4px 12px;border-radius:9px;background:#d9f24b;box-shadow:0 8px 16px rgba(217,242,75,.32);font-size:12px;font-weight:800;color:#1b1e30">赢家 · {{ seat.rank }}</div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;gap:11px;padding:9px 16px 9px 10px;border-radius:18px;background:linear-gradient(180deg,{{ seat.bg1 }},{{ seat.bg2 }});box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08){{ seat.ring }};opacity:{{ seat.op }}">
+            <span style="width:38px;height:38px;border-radius:13px;background:linear-gradient(170deg,{{ seat.g1 }},{{ seat.g2 }});display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:{{ seat.ink }}">{{ seat.ini }}</span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13.5px;font-weight:800">{{ seat.name }}</span><span style="font-size:11.5px;font-weight:600;color:rgba(233,236,247,.5)">{{ seat.tokens }}</span></span>
+
+            <sc-if value="{{ seat.online }}" hint-placeholder-val="{{ true }}">
+              <span style="width:8px;height:8px;border-radius:50%;background:#8ce06a;display:block"></span>
+            </sc-if>
+            <sc-if value="{{ seat.dealer }}" hint-placeholder-val="{{ false }}">
+              <span style="width:22px;height:22px;border-radius:50%;background:#fbfaf6;color:#1d2033;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">庄</span>
+            </sc-if>
+            <sc-if value="{{ seat.timer }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:conic-gradient(#d9f24b 0 62%,rgba(233,236,247,.14) 62% 100%)"><span style="width:20px;height:20px;border-radius:50%;background:#2c3252;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#d9f24b">{{ seat.timerText }}</span></span>
+            </sc-if>
+            <sc-if value="{{ seat.folded }}" hint-placeholder-val="{{ false }}">
+              <span style="padding:3px 9px;border-radius:7px;background:rgba(233,236,247,.08);font-size:10.5px;font-weight:800;color:rgba(233,236,247,.4)">已弃牌</span>
+            </sc-if>
+
+            <sc-if value="{{ seat.mini }}" hint-placeholder-val="{{ true }}">
+              <span style="display:flex;gap:3px;margin-left:2px">
+                <span style="position:relative;width:16px;height:22px;border-radius:4px;background:#0E2E6B;display:block;overflow:hidden"><span style="position:absolute;inset:1.5px;border-radius:2.5px;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.2) 0 1px,rgba(255,255,255,0) 1px 5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.2) 0 1px,rgba(255,255,255,0) 1px 5px);display:block"></span><span style="position:absolute;top:50%;left:50%;width:6px;height:6px;transform:translate(-50%,-50%) rotate(45deg);background:#F1EDE3;display:block"></span></span>
+                <span style="position:relative;width:16px;height:22px;border-radius:4px;background:#0E2E6B;display:block;overflow:hidden"><span style="position:absolute;inset:1.5px;border-radius:2.5px;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.2) 0 1px,rgba(255,255,255,0) 1px 5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.2) 0 1px,rgba(255,255,255,0) 1px 5px);display:block"></span><span style="position:absolute;top:50%;left:50%;width:6px;height:6px;transform:translate(-50%,-50%) rotate(45deg);background:#F1EDE3;display:block"></span></span>
+              </span>
+            </sc-if>
+
+            <sc-if value="{{ seat.showReveal }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;gap:4px;margin-left:2px">
+                <sc-for list="{{ seat.reveal }}" as="rc" hint-placeholder-count="2">
+                  <span style="position:relative;width:30px;height:42px;border-radius:6px;overflow:hidden;background:{{ rc.bg }};color:{{ rc.color }};box-shadow:0 6px 12px rgba(0,0,0,.4);display:block">
+                    <sc-if value="{{ rc.plain }}" hint-placeholder-val="{{ true }}">
+                      <span style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.14;display:block"></span>
+                      <span style="position:absolute;top:2px;left:4px;font:800 13px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ rc.r }}</span>
+                      <svg viewBox="0 0 100 100" style="position:absolute;top:16px;left:4px;width:8px;height:8px"><path d="{{ rc.path }}" fill="currentColor"></path></svg>
+                      <svg viewBox="0 0 100 100" style="position:absolute;right:-3px;bottom:-3px;width:24px;height:24px;opacity:.5"><path d="{{ rc.path }}" fill="currentColor"></path></svg>
+                    </sc-if>
+                    <sc-if value="{{ rc.filled }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute;inset:0;background:currentColor;display:block"></span>
+                      <span style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34));display:block"></span>
+                      <span style="position:absolute;top:2px;left:4px;color:#fff;font:800 13px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ rc.r }}</span>
+                      <svg viewBox="0 0 100 100" style="position:absolute;top:16px;left:4px;width:8px;height:8px;color:#fff"><path d="{{ rc.path }}" fill="currentColor"></path></svg>
+                    </sc-if>
+                  </span>
+                </sc-for>
+              </span>
+            </sc-if>
+
+          </div>
+        </div>
+      </sc-if>
+
+    </sc-for>
+
+    <div style="position:absolute;left:50%;top:566px;transform:translateX(-50%);display:flex;align-items:center;gap:18px">
+      <div style="display:flex;gap:9px">
+        <sc-for list="{{ hand }}" as="hc" hint-placeholder-count="2">
+          <div style="position:relative;width:66px;height:92px;border-radius:10px;overflow:hidden;background:{{ hc.bg }};color:{{ hc.color }};transform:rotate({{ hc.rot }}deg);box-shadow:{{ hc.sh }}">
+            <sc-if value="{{ hc.plain }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+              <svg viewBox="0 0 100 100" style="position:absolute;right:-6px;bottom:-5px;width:61px;height:61px">
+                <clipPath id="{{ hc.cid }}"><path d="{{ hc.path }}"></path></clipPath>
+                <g clip-path="{{ hc.clip }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g>
+              </svg>
+              <div style="position:absolute;top:6px;left:8px;font:800 23px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ hc.r }}</div>
+              <svg viewBox="0 0 100 100" style="position:absolute;top:30px;left:9px;width:12px;height:12px"><path d="{{ hc.path }}" fill="currentColor"></path></svg>
+            </sc-if>
+            <sc-if value="{{ hc.filled }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;background:currentColor"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+              <svg viewBox="0 0 100 100" style="position:absolute;right:-7px;bottom:-6px;width:64px;height:64px;color:#fff;opacity:.2">
+                <clipPath id="{{ hc.cid }}"><path d="{{ hc.path }}"></path></clipPath>
+                <g clip-path="{{ hc.clip }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g>
+              </svg>
+              <div style="position:absolute;top:6px;left:8px;color:#fff;font:800 23px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ hc.r }}</div>
+              <svg viewBox="0 0 100 100" style="position:absolute;top:30px;left:9px;width:12px;height:12px;color:#fff"><path d="{{ hc.path }}" fill="currentColor"></path></svg>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;align-items:flex-start">
+        <sc-if value="{{ heroRank }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:7px;padding:4px 12px;border-radius:9px;background:#d9f24b;box-shadow:0 8px 16px rgba(217,242,75,.32);font-size:12px;font-weight:800;color:#1b1e30">{{ heroRankText }}</div>
+        </sc-if>
+        <div style="display:flex;align-items:center;gap:13px;padding:11px 20px 11px 12px;border-radius:20px;background:linear-gradient(180deg,#333a5e,#2a3050);box-shadow:0 16px 28px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1),0 0 0 2px {{ heroRing }}">
+          <span style="width:46px;height:46px;border-radius:15px;background:linear-gradient(170deg,#6a83ff,#3f5cf0);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff">YOU</span>
+          <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:800">你</span><span style="font-size:12.5px;font-weight:700;color:rgba(233,236,247,.55)">{{ heroTokens }}</span></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:#8ce06a;display:block"></span>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ showActionBar }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:34px;right:34px;bottom:34px;height:120px;box-sizing:border-box;border-radius:24px;background:linear-gradient(180deg,#2a3050,#232842);box-shadow:0 20px 36px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);padding:18px 22px;display:flex;align-items:center;gap:28px;opacity:{{ barOp }}">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:13px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:12px;font-weight:700;color:rgba(233,236,247,.4);margin-right:2px">快捷下注</span>
+          <sc-for list="{{ quick }}" as="q" hint-placeholder-count="4">
+            <span style="padding:6px 16px;border-radius:10px;background:{{ q.bg }};box-shadow:{{ q.sh }};font-size:12.5px;font-weight:{{ q.fw }};color:{{ q.c }}">{{ q.label }}</span>
+          </sc-for>
+          <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:{{ hintColor }}">{{ sliderHint }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="position:relative;flex:1;height:8px;border-radius:999px;background:#1b1f33;box-shadow:inset 0 2px 4px rgba(0,0,0,.55)">
+            <div style="position:absolute;left:0;top:0;height:8px;width:{{ sliderPct }};border-radius:999px;background:linear-gradient(90deg,#4d6bfe,#d9f24b)"></div>
+            <div style="position:absolute;left:{{ sliderPct }};top:-7px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#fbfaf6;box-shadow:0 6px 12px rgba(0,0,0,.5)"></div>
+          </div>
+          <div style="flex:none;display:flex;align-items:baseline;gap:7px"><span style="font-size:26px;font-weight:800;line-height:1">{{ betAmount }}</span><span style="font-size:12.5px;font-weight:700;color:rgba(233,236,247,.45)">tokens</span></div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;gap:12px">
+        <sc-if value="{{ showFold }}" hint-placeholder-val="{{ true }}">
+          <div style="width:120px;height:60px;border-radius:18px;background:#1e2237;box-shadow:inset 0 0 0 1px rgba(233,236,247,.12);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:rgba(233,236,247,.65)">弃牌</div>
+        </sc-if>
+        <sc-if value="{{ showCall }}" hint-placeholder-val="{{ true }}">
+          <div style="width:170px;height:60px;border-radius:18px;background:linear-gradient(180deg,#39406a,#2e3457);box-shadow:0 12px 20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:800;color:#e9ecf7">跟注<span style="font-size:14px;color:rgba(233,236,247,.6)">{{ callAmount }}</span></div>
+        </sc-if>
+        <div style="width:210px;height:60px;border-radius:18px;background:{{ priBg }};box-shadow:{{ priSh }};display:flex;align-items:center;justify-content:center;gap:9px;font-size:16px;font-weight:800;color:{{ priInk }}">{{ priLabel }}<span style="font-size:15px">{{ priAmount }}</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showWaitNote }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:50%;bottom:170px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:9px 20px;border-radius:999px;background:rgba(30,34,55,.92);box-shadow:0 12px 24px rgba(0,0,0,.4),inset 0 0 0 1px rgba(233,236,247,.1);font-size:13.5px;font-weight:800;color:rgba(233,236,247,.7)"><span style="width:8px;height:8px;border-radius:50%;background:#d9f24b;display:block;animation:dsh-pulse 1.2s ease-in-out infinite"></span>等 Kai 行动 · 12s</div>
+    </sc-if>
+
+    <sc-if value="{{ showResultBar }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:34px;right:34px;bottom:34px;height:120px;box-sizing:border-box;border-radius:24px;background:linear-gradient(180deg,#2a3050,#232842);box-shadow:0 20px 36px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="font-size:22px;font-weight:800;color:#d9f24b">你赢得底池 7.0M tokens</div>
+        <div style="font-size:13px;font-weight:700;color:rgba(233,236,247,.5)">三条 2 · 2♦ + 桌上 2♠ 2♣ ｜ Noah 一对 K ｜ Kai 高牌 K</div>
+      </div>
+      <div style="flex:none;display:flex;gap:12px">
+        <div style="width:150px;height:60px;border-radius:18px;background:#1e2237;box-shadow:inset 0 0 0 1px rgba(233,236,247,.12);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:rgba(233,236,247,.65)">查看牌谱</div>
+        <div style="width:210px;height:60px;border-radius:18px;background:linear-gradient(180deg,#d9f24b,#bcd934);box-shadow:0 14px 24px rgba(217,242,75,.3),inset 0 1px 0 rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;gap:9px;font-size:16px;font-weight:800;color:#1b1e30">下一手<span style="font-size:13px;opacity:.6">4s</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ overlayLeave }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(10,12,22,.66);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center">
+      <div style="width:380px;box-sizing:border-box;border-radius:26px;background:linear-gradient(180deg,#2c3252,#242942);box-shadow:0 40px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:26px;display:flex;flex-direction:column;gap:16px">
+        <div style="width:48px;height:48px;border-radius:16px;background:rgba(240,78,92,.14);box-shadow:inset 0 0 0 1.5px rgba(240,78,92,.35);display:flex;align-items:center;justify-content:center;font-size:22px;color:#F04E5C">!</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:19px;font-weight:800">离开牌桌？</div>
+          <div style="font-size:13px;font-weight:600;line-height:1.65;color:rgba(233,236,247,.55)">离开后这一手按弃牌处理。</div>
+        </div>
+        <div style="display:flex;gap:11px;padding-top:4px">
+          <div style="flex:1;height:50px;border-radius:16px;background:#1e2237;box-shadow:inset 0 0 0 1px rgba(233,236,247,.12);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:800;color:rgba(233,236,247,.7)">取消</div>
+          <div style="flex:1;height:50px;border-radius:16px;background:linear-gradient(180deg,#F04E5C,#d33b48);box-shadow:0 12px 22px rgba(240,78,92,.32),inset 0 1px 0 rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:800;color:#fff">离开牌桌</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ overlayReconnect }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(10,12,22,.74);backdrop-filter:blur(5px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+      <div style="width:64px;height:64px;border-radius:50%;background:conic-gradient(rgba(233,236,247,0) 0 25%,#d9f24b 100%);animation:dsh-spin 900ms linear infinite;display:flex;align-items:center;justify-content:center"><div style="width:52px;height:52px;border-radius:50%;background:#1b1e30"></div></div>
+      <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+        <div style="font-size:20px;font-weight:800">正在重连…</div>
+        <div style="font-size:13px;font-weight:600;color:rgba(233,236,247,.5)">连接恢复后会回到当前这一手</div>
+      </div>
+      <div style="width:280px;height:6px;border-radius:999px;background:rgba(233,236,247,.1);overflow:hidden"><div style="width:38%;height:6px;border-radius:999px;background:#d9f24b"></div></div>
+      <div style="padding:10px 22px;border-radius:14px;background:rgba(233,236,247,.06);box-shadow:inset 0 0 0 1px rgba(233,236,247,.14);font-size:13px;font-weight:800;color:rgba(233,236,247,.65)">离开牌桌</div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;flop&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;preflop&quot;,&quot;flop&quot;,&quot;turn&quot;,&quot;river&quot;,&quot;waiting&quot;,&quot;allin&quot;,&quot;showdown&quot;,&quot;empty&quot;,&quot;invite&quot;,&quot;leave&quot;,&quot;reconnect&quot;],&quot;section&quot;:&quot;牌局状态&quot;},&quot;showSidebar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;外壳&quot;},&quot;fourColorDeck&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;牌面&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    Component._n = (Component._n || 0) + 1;
+    this.uid = 'pk' + Component._n;
+    this._c = 0;
+  }
+
+  renderVals() {
+    const st = this.props.state ?? 'flop';
+    const four = this.props.fourColorDeck ?? true;
+    const P = {
+      s: 'M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z',
+      h: 'M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z',
+      d: 'M50 5 L91 50 L50 95 L9 50 Z',
+      c: 'M30 29 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M6 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M54 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M39 95 C48 82 49 70 49 50 L57 50 C57 70 58 82 67 95 Z'
+    };
+    const C4 = { s: '#1C2A4A', h: '#F04E5C', d: '#2F7BFF', c: '#17A97C' };
+    const C2 = { s: '#1C2A4A', h: '#E23A46', d: '#E23A46', c: '#1C2A4A' };
+    const GLOW = { s: 'rgba(28,42,74,.3)', h: 'rgba(240,78,92,.28)', d: 'rgba(47,123,255,.28)', c: 'rgba(23,169,124,.28)' };
+    const col = k => (four ? C4 : C2)[k];
+    const BIG = { A: 1, J: 1, Q: 1, K: 1 };
+
+    const mk = (code, up) => {
+      const r = code.slice(0, -1), k = code.slice(-1);
+      const id = this.uid + '-' + (this._c++);
+      const filled = !!BIG[r] && !!up;
+      return {
+        r: r, k: k, path: P[k], color: col(k), cid: id, clip: 'url(#' + id + ')',
+        up: !!up, back: !up, filled: filled, plain: !!up && !filled,
+        bg: up ? (filled ? '#fff' : '#fff') : '#0E2E6B',
+        sh: up
+          ? '0 14px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9)'
+          : '0 14px 22px rgba(0,0,0,.45)',
+        glow: GLOW[k]
+      };
+    };
+
+    const BOARD = ['2s', '6s', '2c', '9h', 'Kd'];
+    const UP = { preflop: 0, flop: 3, turn: 4, river: 5, allin: 5, showdown: 5, waiting: 3, empty: 3, invite: 3, leave: 3, reconnect: 3 };
+    const upCount = UP[st] === undefined ? 3 : UP[st];
+    const board = BOARD.map((c, i) => mk(c, i < upCount));
+
+    const hand = [
+      Object.assign(mk('Ad', 1), { rot: -4 }),
+      Object.assign(mk('2d', 1), { rot: 4 })
+    ];
+    hand[0].bg = 'transparent';
+    hand[0].sh = '0 16px 26px rgba(0,0,0,.5),0 0 22px ' + hand[0].glow;
+    hand[1].sh = '0 16px 26px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.9)';
+
+    const sm = code => {
+      const r = code.slice(0, -1), k = code.slice(-1);
+      const filled = !!BIG[r];
+      return { r: r, path: P[k], color: col(k), filled: filled, plain: !filled, bg: filled ? '#fff' : '#fff' };
+    };
+
+    const STREETS = ['翻牌前', '翻牌', '转牌', '河牌'];
+    const SI = { preflop: 0, flop: 1, turn: 2, river: 3, allin: 3, showdown: 3, waiting: 1, empty: 1, invite: 1, leave: 1, reconnect: 1 };
+    const si = SI[st] === undefined ? 1 : SI[st];
+    const streets = STREETS.map((label, i) => i === si
+      ? { label: label, bg: '#d9f24b', c: '#1b1e30', fw: '800', sh: '0 4px 10px rgba(217,242,75,.28)' }
+      : { label: label, bg: 'transparent', c: 'rgba(233,236,247,.4)', fw: '700', sh: 'none' });
+
+    const POT = { preflop: '1.5M', flop: '1.7M', turn: '3.2M', river: '5.6M', allin: '5.6M', showdown: '7.0M', waiting: '2.98M', empty: '1.7M', invite: '1.7M', leave: '1.7M', reconnect: '1.7M' };
+
+    const STATUS = {
+      preflop: ['轮到你 · 大盲 1M', '#d9f24b'],
+      flop: ['轮到你 · Noah 已下注 561K', '#d9f24b'],
+      turn: ['轮到你 · 无人下注', '#d9f24b'],
+      river: ['轮到你 · Kai 下注 1.4M', '#d9f24b'],
+      allin: ['筹码不足跟注 · 只能全下', '#F04E5C'],
+      showdown: ['本手结束 · 你赢', '#d9f24b'],
+      waiting: ['已下注 · 好友正在思考 · 1.28M', 'rgba(233,236,247,.55)'],
+      empty: ['轮到你 · 无人下注', '#d9f24b'],
+      invite: ['轮到你 · Noah 已下注 561K', '#d9f24b'],
+      leave: ['轮到你 · Noah 已下注 561K', '#d9f24b'],
+      reconnect: ['连接中断 · 正在重连', '#F04E5C']
+    };
+    const status = STATUS[st] || STATUS.flop;
+    const glowOf = c => c === '#d9f24b' ? 'rgba(217,242,75,.8)' : (c === '#F04E5C' ? 'rgba(240,78,92,.7)' : 'rgba(233,236,247,.3)');
+
+    const LABEL = {
+      preflop: '翻牌前 · 轮到你', flop: '翻牌 · 轮到你（5a-C 定稿）', turn: '转牌 · 轮到你', river: '河牌 · 轮到你',
+      waiting: '等别人回合', allin: '筹码不足 · 只能全下', showdown: '亮牌结算 · 赢家高亮',
+      empty: '空座位 · 等待加入', invite: '邀请好友 · 房间码已复制', leave: '离开牌桌确认（净新增）', reconnect: '断线重连（净新增）'
+    };
+
+    const PLAIN = { bg1: '#2c3252', bg2: '#252a44', ring: '' };
+    const ACTIVE = { bg1: '#333a5e', bg2: '#2a3050', ring: ',0 0 0 1.5px rgba(217,242,75,.35)' };
+    const WIN = { bg1: '#3a4468', bg2: '#2f3757', ring: ',0 0 0 2px #d9f24b,0 0 34px rgba(217,242,75,.4)' };
+
+    const base = [
+      { key: 'mina', ini: 'MI', name: 'Mina', tokens: '106K tokens', g1: '#7b92ff', g2: '#4864e8', ink: '#fff', pos: 'left:50%;top:140px;transform:translateX(-50%)', align: 'center' },
+      { key: 'emil', ini: 'EK', name: 'Emil', tokens: '35.8K tokens', g1: '#93e07a', g2: '#5fbb4b', ink: '#12290c', pos: 'left:36px;top:232px', align: 'flex-start' },
+      { key: 'noah', ini: 'NO', name: 'Noah', tokens: '24.2K tokens', g1: '#ffcf6b', g2: '#e2a133', ink: '#432c05', pos: 'right:36px;top:232px', align: 'flex-end' },
+      { key: 'rae', ini: 'RA', name: 'Rae', tokens: '11.2K tokens', g1: '#ff8f8b', g2: '#e2564f', ink: '#450f0b', pos: 'left:36px;top:436px', align: 'flex-start', dealer: true },
+      { key: 'kai', ini: 'KA', name: 'Kai', tokens: '56.4K tokens', g1: '#b9c2dd', g2: '#8892b3', ink: '#242a40', pos: 'right:36px;top:436px', align: 'flex-end' }
+    ];
+
+    const REVEAL = { noah: ['Kc', 'Qs'], kai: ['8c', '7d'] };
+    const FOLDED_AT_SHOWDOWN = { mina: 1, emil: 1, rae: 1 };
+
+    const seats = base.map(s => {
+      const o = Object.assign({}, PLAIN, s, {
+        isPlayer: true, isEmpty: false, mini: true, showReveal: false, reveal: [],
+        online: !s.dealer, dealer: !!s.dealer, timer: false, timerText: '', folded: false,
+        winner: false, rank: '', op: '1'
+      });
+      if (st === 'empty' && s.key === 'kai') {
+        return { key: s.key, isPlayer: false, isEmpty: true, pos: s.pos };
+      }
+      if (st === 'flop' || st === 'invite' || st === 'leave' || st === 'reconnect' || st === 'preflop') {
+        if (s.key === 'noah') Object.assign(o, ACTIVE);
+      }
+      if (st === 'waiting' && s.key === 'kai') {
+        Object.assign(o, ACTIVE, { timer: true, timerText: '12', online: false });
+      }
+      if (st === 'river' && s.key === 'kai') Object.assign(o, ACTIVE);
+      if (st === 'allin' && s.key === 'kai') Object.assign(o, ACTIVE);
+      if (st === 'showdown') {
+        if (FOLDED_AT_SHOWDOWN[s.key]) {
+          Object.assign(o, { folded: true, online: false, dealer: false, mini: false, op: '.45' });
+        } else {
+          const rv = REVEAL[s.key];
+          Object.assign(o, { mini: false, showReveal: true, reveal: rv.map(sm), online: false });
+        }
+      }
+      return o;
+    });
+
+    const CHIPS = {
+      preflop: [{ pos: 'left:658px;top:198px', amt: '500K' }, { pos: 'left:838px;top:262px', amt: '1M' }],
+      flop: [{ pos: 'left:658px;top:198px', amt: '561K' }, { pos: 'left:838px;top:262px', amt: '561K' }],
+      turn: [],
+      river: [{ pos: 'left:838px;top:436px', amt: '1.4M' }],
+      allin: [{ pos: 'left:838px;top:436px', amt: '3.4M' }],
+      showdown: [],
+      waiting: [{ pos: 'left:658px;top:198px', amt: '561K' }, { pos: 'left:838px;top:262px', amt: '561K' }, { pos: 'left:596px;top:458px', amt: '1.28M' }],
+      empty: [],
+      invite: [{ pos: 'left:658px;top:198px', amt: '561K' }, { pos: 'left:838px;top:262px', amt: '561K' }],
+      leave: [{ pos: 'left:658px;top:198px', amt: '561K' }, { pos: 'left:838px;top:262px', amt: '561K' }],
+      reconnect: [{ pos: 'left:658px;top:198px', amt: '561K' }, { pos: 'left:838px;top:262px', amt: '561K' }]
+    };
+
+    const qOn = { bg: '#4d6bfe', sh: '0 6px 14px rgba(77,107,254,.4)', fw: '800', c: '#fff' };
+    const qOff = { bg: '#1e2237', sh: 'inset 0 1px 3px rgba(0,0,0,.4)', fw: '700', c: 'rgba(233,236,247,.6)' };
+    const QLAB = ['25%', '33%', '75%', '133%'];
+    const activeQ = st === 'allin' ? 3 : 2;
+    const quick = QLAB.map((label, i) => Object.assign({ label: label }, i === activeQ ? qOn : qOff));
+
+    const isAllin = st === 'allin';
+    const isWait = st === 'waiting';
+    const priYellow = { priBg: 'linear-gradient(180deg,#d9f24b,#bcd934)', priSh: '0 14px 24px rgba(217,242,75,.3),inset 0 1px 0 rgba(255,255,255,.5)', priInk: '#1b1e30' };
+    const priRed = { priBg: 'linear-gradient(180deg,#F04E5C,#d33b48)', priSh: '0 14px 24px rgba(240,78,92,.32),inset 0 1px 0 rgba(255,255,255,.28)', priInk: '#fff' };
+
+    const BET = { preflop: '1.13M', flop: '1.28M', turn: '1.6M', river: '2.2M', allin: '2.13M', waiting: '1.28M', empty: '1.28M', invite: '1.28M', leave: '1.28M', reconnect: '1.28M' };
+    const PCT = { preflop: '31%', flop: '39%', turn: '56%', river: '89%', allin: '100%', waiting: '39%', empty: '39%', invite: '39%', leave: '39%', reconnect: '39%' };
+    const CALL = { preflop: '1M', flop: '561K', turn: '—', river: '1.4M', waiting: '561K', empty: '—', invite: '561K', leave: '561K', reconnect: '561K' };
+
+    return {
+      screenLabel: LABEL[st] || st,
+      showSidebar: this.props.showSidebar ?? true,
+      board: board, hand: hand, seats: seats, streets: streets,
+      chips: CHIPS[st] || CHIPS.flop,
+      pot: POT[st] || '1.7M',
+      potLabel: st === 'showdown' ? '本手底池' : '底池',
+      roomText: st === 'empty' ? '好友桌 · 5 / 6 在线 · 1 席空缺' : '好友桌 · 4 / 6 在线',
+      statusText: status[0], statusColor: status[1], statusGlow: glowOf(status[1]),
+      heroTokens: isAllin ? '2.13M tokens · 全部' : '2.13M tokens',
+      heroRing: st === 'showdown' ? '#d9f24b' : (isWait ? 'rgba(77,107,254,.2)' : 'rgba(77,107,254,.55)'),
+      heroRank: st === 'showdown', heroRankText: '三条 2',
+      showActionBar: st !== 'showdown',
+      showResultBar: st === 'showdown',
+      showWaitNote: isWait,
+      barOp: isWait ? '.42' : '1',
+      quick: quick,
+      sliderPct: PCT[st] || '39%',
+      betAmount: BET[st] || '1.28M',
+      sliderHint: isAllin ? '余额 2.13M ＜ 跟注 3.4M，只能全下' : '滑杆范围 561K – 2.4M',
+      hintColor: isAllin ? '#F04E5C' : 'rgba(233,236,247,.35)',
+      showFold: !isWait,
+      showCall: !isAllin && !isWait && st !== 'turn' && st !== 'empty',
+      callAmount: CALL[st] || '561K',
+      priLabel: isWait ? '等待中' : (isAllin ? '全下' : '下注'),
+      priAmount: isWait ? '' : (isAllin ? '2.13M' : (BET[st] || '1.28M')),
+      priBg: isWait ? '#1e2237' : (isAllin ? priRed.priBg : priYellow.priBg),
+      priSh: isWait ? 'inset 0 0 0 1px rgba(233,236,247,.12)' : (isAllin ? priRed.priSh : priYellow.priSh),
+      priInk: isWait ? 'rgba(233,236,247,.45)' : (isAllin ? priRed.priInk : priYellow.priInk),
+      inviteLabel: st === 'invite' ? '房间码已复制' : '邀请好友',
+      inviteBg: st === 'invite' ? '#4d6bfe' : '#282e49',
+      inviteSh: st === 'invite' ? '0 8px 16px rgba(77,107,254,.4),inset 0 1px 0 rgba(255,255,255,.2)' : 'inset 0 1px 0 rgba(255,255,255,.08),0 8px 14px rgba(0,0,0,.3)',
+      inviteInk: st === 'invite' ? '#fff' : '#e9ecf7',
+      inviteDot: st === 'invite' ? 'rgba(255,255,255,.75)' : 'rgba(233,236,247,.55)',
+      overlayLeave: st === 'leave',
+      overlayReconnect: st === 'reconnect'
+    };
+  }
+}
+</script>
+</body>
+</html>

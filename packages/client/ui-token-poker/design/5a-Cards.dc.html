@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;font-family:'Noto Sans SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#2a78d6}a:hover{color:#1a5aa8}</style></helmet>
+
+<section style="width:max-content;padding:48px 52px 56px;display:flex;flex-direction:column;gap:14px">
+
+  <div style="display:flex;align-items:baseline;gap:10px;font:400 12px/1.4 'Noto Sans SC',system-ui;color:rgba(0,0,0,.55)">
+    <span style="font:600 11px ui-monospace,Menlo,monospace;padding:3px 8px;background:#1a1a1a;color:#fff;border-radius:5px">5a-C</span>
+    <span style="font-weight:600;color:#1a1a1a">软陶六人桌 · 换上棱面牌面</span>
+    <span>桌面与功能完全沿用 5a，只替换牌：公共牌 / 手牌 / 牌背换成「牌面设计」那一套（左上角标 + 出血棱面花色 + 四色牌 + 菱格牌背）</span>
+  </div>
+
+  <div style="width:1440px;height:900px;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden">
+    <dc-import name="Scheme-Clay-Cards" hint-size="1440px,900px"></dc-import>
+  </div>
+
+  <div style="display:flex;align-items:flex-start;gap:18px;padding-top:10px">
+
+    <sc-if value="{{ showMobile }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none;width:390px;height:844px;border-radius:26px;border:1px solid rgba(0,0,0,.14);background:#171a2b;overflow:hidden;position:relative;box-shadow:0 4px 18px rgba(0,0,0,.14)">
+        <div style="position:absolute;top:50%;left:0;width:1440px;height:900px;transform:translateY(-50%) scale(0.270833);transform-origin:0 50%">
+          <dc-import name="Scheme-Clay-Cards" hint-size="1440px,900px"></dc-import>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:26px;text-align:center;font:400 11px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.32)">390 × 844 · 整窗 27%</div>
+      </div>
+    </sc-if>
+
+    <div style="flex:none;width:300px;display:flex;flex-direction:column;gap:12px;font:400 12px/1.7 'Noto Sans SC',system-ui;color:rgba(0,0,0,.55)">
+      <p style="margin:0"><b style="color:#1a1a1a">换了什么</b><br>① 公共牌从「数字 + ♠ 符号」改成棱面牌：左上角标 Archivo 800（字高＝卡宽 35%），花色做成大面积棱面图形从右下裁出去，牌面顶部一层花色渐晕；② 四色牌 ♠ 靛蓝 / ♥ 珊瑚 / ♦ DSH 蓝 / ♣ 绿，深桌面上一眼分花色；③ A / J / Q / K 满色卡面 + 白角标（手上的 A♦ 直接是一张蓝卡）；④ 未发的转牌河牌和玩家迷你牌背换成菱格牌背 · DSH 蓝皮肤。</p>
+      <p style="margin:0"><b style="color:#1a1a1a">尺寸</b><br>公共牌 76×106（5:7，圆角 11），手牌 66×92（圆角 10），玩家名牌迷你牌背 16×22。牌背的菱格由 14px 收到 9px，缩到这个尺寸仍是均匀织纹，不跟牌面抢。</p>
+      <p style="margin:0"><b style="color:#1a1a1a">要注意</b><br>桌上现在有三种蓝：DSH 蓝（品牌 / 选中态）、♦ 蓝（牌面）、牌背蓝。如果觉得糊，牌背可以退回深蓝款，或者 ♦ 改回红——四色牌只在多人同时亮牌时才真正吃到收益。</p>
+    </div>
+
+    <sc-if value="{{ showCompare }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none;display:flex;flex-direction:column;gap:12px;padding:18px 20px;border:1px solid rgba(0,0,0,.1);border-radius:12px;background:#22273f">
+        <div style="font:600 12px/1 'Noto Sans SC',system-ui;color:rgba(255,255,255,.55)">同尺寸对照 · 76×106</div>
+        <div style="display:flex;gap:26px">
+          <div style="display:flex;flex-direction:column;gap:9px;align-items:flex-start">
+            <div style="display:flex;gap:10px">
+              <div style="width:76px;height:106px;box-sizing:border-box;border-radius:14px;background:linear-gradient(170deg,#fbfaf6,#e7e4da);box-shadow:0 14px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9);padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between">
+                <span style="font:800 26px/1 Nunito,system-ui;color:#1d2033">2</span><span style="font-size:26px;line-height:1;color:#1d2033;align-self:flex-end">♠</span>
+              </div>
+              <div style="width:76px;height:106px;box-sizing:border-box;border-radius:14px;background:linear-gradient(170deg,#43508c,#333d6e);box-shadow:0 14px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:24px;color:rgba(255,255,255,.28)">♠</div>
+            </div>
+            <div style="font:400 11px/1 'Noto Sans SC',system-ui;color:rgba(255,255,255,.4)">原 5a</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;align-items:flex-start">
+            <div style="display:flex;gap:10px">
+              <div style="position:relative;width:76px;height:106px;border-radius:11px;overflow:hidden;background:#fff;color:#1C2A4A;box-shadow:0 14px 22px rgba(0,0,0,.45)">
+                <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+                <svg viewBox="0 0 100 100" style="position:absolute;right:-7px;bottom:-6px;width:70px;height:70px">
+                  <clipPath id="cp-c1"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z"></path></clipPath>
+                  <g clip-path="url(#cp-c1)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g>
+                </svg>
+                <div style="position:absolute;top:7px;left:9px;font:800 27px/.82 Archivo,system-ui;letter-spacing:-.05em">2</div>
+                <svg viewBox="0 0 100 100" style="position:absolute;top:35px;left:10px;width:13px;height:13px"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z" fill="currentColor"></path></svg>
+              </div>
+              <div style="position:relative;width:76px;height:106px;border-radius:11px;overflow:hidden;background:#0E2E6B;box-shadow:0 14px 22px rgba(0,0,0,.45)">
+                <div style="position:absolute;inset:5px;border-radius:7px;overflow:hidden;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px)"></div>
+                <div style="position:absolute;inset:5px;border-radius:7px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(8,26,66,.5) 84%)"></div>
+                <div style="position:absolute;inset:5px;border-radius:7px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div>
+                <div style="position:absolute;top:50%;left:50%;width:25px;height:25px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;background:#0E2E6B"></div>
+                <div style="position:absolute;top:50%;left:50%;width:19px;height:19px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;border:1.5px solid rgba(255,255,255,.5)"></div>
+                <div style="position:absolute;top:50%;left:50%;width:12px;height:12px;transform:translate(-50%,-50%) rotate(45deg);border-radius:3px;background:#F1EDE3"></div>
+              </div>
+            </div>
+            <div style="font:400 11px/1 'Noto Sans SC',system-ui;color:rgba(255,255,255,.4)">棱面版</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding-top:4px;font:400 11px/1 'Noto Sans SC',system-ui;color:rgba(255,255,255,.45)">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#1C2A4A;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)"></span>♠</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#F04E5C"></span>♥</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#2F7BFF"></span>♦</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#17A97C"></span>♣</span>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showMobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;页面&quot;},&quot;showCompare&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;页面&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showMobile: this.props.showMobile ?? true,
+      showCompare: this.props.showCompare ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>
