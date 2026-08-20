@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import clsx from 'clsx'
 import {
-  IconChevronRightOutline14,
   IconChecklistOutline14,
+  IconChevronRightOutline14,
   IconDataOutline16,
   IconGoalOutline16,
   IconUserOutline16,
@@ -11,192 +12,180 @@ import {
   ASSESSMENT_TREND,
   CLASS_OPTIONS,
   CLASS_SUMMARY,
-  DASHBOARD_TASKS,
   KNOWLEDGE_MASTERY,
   SCHOOL_CONTEXT,
-  STUDENTS,
+  SEATS,
 } from './TeacherData.ts'
 import type { WorkbenchTab } from './TeacherViews.tsx'
 import base from './TeacherWorkbench.module.css'
 import css from './TeacherInsights.module.css'
 
-interface DashboardSnapshot {
-  attendance: string
-  attendanceNote: string
-  homework: string
-  homeworkNote: string
-  average: string
-  averageNote: string
-  pending: string
-  pendingNote: string
+const HAND_RAISERS = new Set(['秦书意', '夏栀'])
+const LATE_STUDENTS = new Set(['邵雨眠', '韩清和'])
+
+type SeatTone = 'present' | 'hand' | 'concern' | 'late' | 'absent'
+
+function seatTone(name: string, status: string): SeatTone {
+  if (status === '请假') return 'absent'
+  if (HAND_RAISERS.has(name)) return 'hand'
+  if (status === '关注') return 'concern'
+  if (LATE_STUDENTS.has(name)) return 'late'
+  return 'present'
 }
 
-const CLASS_SNAPSHOTS: Record<(typeof CLASS_OPTIONS)[number], DashboardSnapshot> = {
-  '高二（3）班': {
-    attendance: `${CLASS_SUMMARY.attendanceRate}%`,
-    attendanceNote: `${CLASS_SUMMARY.attendanceCount} / ${CLASS_SUMMARY.studentCount} 人到校`,
-    homework: `${CLASS_SUMMARY.homeworkRate}%`,
-    homeworkNote: '194 / 210 份按时提交',
-    average: `${CLASS_SUMMARY.averageScore}`,
-    averageNote: `较上次 +${CLASS_SUMMARY.scoreChange}`,
-    pending: `${CLASS_SUMMARY.pendingStudents}`,
-    pendingNote: '2 学业 · 2 习惯',
-  },
-  '高二（4）班': {
-    attendance: '96.8%',
-    attendanceNote: '39 / 40 人到校',
-    homework: '89.7%',
-    homeworkNote: '179 / 200 份按时提交',
-    average: '80.9',
-    averageNote: '较上次 +1.6',
-    pending: '6',
-    pendingNote: '4 学业 · 2 习惯',
-  },
+function AttendanceRing({ count, total }: { count: number, total: number }) {
+  const circumference = 339
+  const dash = Math.round((count / total) * circumference)
+  return (
+    <div className={css.attendanceRing}>
+      <svg viewBox="0 0 132 132" aria-label={`实到 ${count} 人，应到 ${total} 人`}>
+        <circle cx="66" cy="66" r="54" className={css.ringTrack} />
+        <circle cx="66" cy="66" r="54" className={css.ringPresent} strokeDasharray={`${dash} ${circumference}`} />
+        <circle cx="66" cy="66" r="54" className={css.ringLate} strokeDasharray={`16 ${circumference}`} />
+      </svg>
+      <span><strong>{count}</strong><small>/ {total}</small></span>
+    </div>
+  )
 }
 
-const RISK_STUDENTS = STUDENTS.filter(student => student.risk !== '稳定').slice(0, 4)
-
-function TrendChart({ className }: { className: (typeof CLASS_OPTIONS)[number] }) {
-  const offset = className === '高二（3）班' ? 0 : -1.7
+function CompactTrend({ offset }: { offset: number }) {
   const points = ASSESSMENT_TREND.map((item, index) => ({
-    x: 54 + index * 118,
-    y: 156 - ((item.classAverage + offset) - 70) * 5.4,
-    baselineY: 156 - (item.gradeAverage - 70) * 5.4,
-    value: item.classAverage + offset,
+    x: 28 + index * 67,
+    y: 91 - ((item.classAverage + offset) - 74) * 4.2,
     label: item.shortLabel,
   }))
-
+  const lastPoint = points[points.length - 1]!
   return (
-    <div className={css.lineChart}>
-      <svg viewBox="0 0 570 196" role="img" aria-label={`${className}近五次物理测评平均分趋势`}>
-        {[70, 75, 80, 85, 90].map((value, index) => {
-          const y = 156 - index * 27
-          return (
-            <g key={value}>
-              <line x1="48" y1={y} x2="540" y2={y} className={css.chartGridLine} />
-              <text x="10" y={y + 4} className={css.chartAxisText}>{value}</text>
-            </g>
-          )
-        })}
-        <polyline points={points.map(point => `${point.x},${point.baselineY}`).join(' ')} className={css.baselineLine} />
-        <polyline points={points.map(point => `${point.x},${point.y}`).join(' ')} className={css.primaryLine} />
-        {points.map(point => (
-          <g key={point.label}>
-            <circle cx={point.x} cy={point.y} r="4" className={css.primaryPoint} />
-            <text x={point.x} y={point.y - 10} textAnchor="middle" className={css.pointValue}>{point.value.toFixed(1)}</text>
-            <text x={point.x} y="184" textAnchor="middle" className={css.chartAxisText}>{point.label}</text>
-          </g>
-        ))}
-      </svg>
-    </div>
+    <svg className={css.overviewTrendChart} viewBox="0 0 320 118" role="img" aria-label="近五次物理测评均分趋势">
+      <g className={css.overviewTrendGrid}>
+        <line x1="10" y1="20" x2="310" y2="20" />
+        <line x1="10" y1="56" x2="310" y2="56" />
+        <line x1="10" y1="92" x2="310" y2="92" />
+      </g>
+      <polyline points={points.map(point => `${point.x},${point.y}`).join(' ')} className={css.overviewTrendLine} />
+      <circle cx={lastPoint.x} cy={lastPoint.y} r="6" className={css.overviewTrendPoint} />
+      <g className={css.overviewTrendLabels}>
+        {points.map(point => <text key={point.label} x={point.x} y="112" textAnchor="middle">{point.label}</text>)}
+      </g>
+      <text x="304" y={Math.max(18, lastPoint.y - 13)} textAnchor="end" className={css.overviewTrendValue}>{(CLASS_SUMMARY.averageScore + offset).toFixed(1)}</text>
+    </svg>
   )
 }
 
 /** Render the teacher overview dashboard. */
 export function TeacherDashboard({ onNavigate }: { onNavigate: (tab: WorkbenchTab) => void }) {
   const [activeClass, setActiveClass] = useState<(typeof CLASS_OPTIONS)[number]>('高二（3）班')
-  const [period, setPeriod] = useState('本周')
-  const snapshot = CLASS_SNAPSHOTS[activeClass]
-  const metrics = [
-    { label: '今日出勤', value: snapshot.attendance, note: snapshot.attendanceNote, tab: 'classes' as const, icon: <IconUserOutline16 size={16} /> },
-    { label: '作业按时率', value: snapshot.homework, note: snapshot.homeworkNote, tab: 'habits' as const, icon: <IconChecklistOutline14 size={16} /> },
-    { label: '运动学单元均分', value: snapshot.average, note: snapshot.averageNote, tab: 'academics' as const, icon: <IconDataOutline16 size={16} /> },
-    { label: '重点跟进', value: snapshot.pending, note: snapshot.pendingNote, tab: 'students' as const, icon: <IconWarningOutline16 size={16} /> },
-  ]
+  const [period, setPeriod] = useState('近 5 次')
+  const [selectedSeatId, setSelectedSeatId] = useState('seat-1')
+  const classOffset = activeClass === '高二（3）班' ? 0 : -1.7
+  const attendance = activeClass === '高二（3）班' ? { present: 41, total: 42, late: 2, absent: 1 } : { present: 39, total: 40, late: 1, absent: 1 }
+  const selectedSeat = SEATS.find(seat => seat.id === selectedSeatId) ?? SEATS[0]
 
   return (
-    <div className={base.view} data-screen-label="Teacher Dashboard">
-      <div className={base.viewTopbar}>
-        <div>
-          <h2>班级 Dashboard</h2>
-          <p>{SCHOOL_CONTEXT.school} · {SCHOOL_CONTEXT.className} · 数据更新于今天 09:32</p>
-        </div>
-        <div className={base.toolbarGroup}>
-          <div className={base.segmented} aria-label="选择班级">
-            {CLASS_OPTIONS.map(className => (
-              <button key={className} type="button" className={activeClass === className ? base.segmentActive : undefined} onClick={() => { setActiveClass(className) }}>{className}</button>
-            ))}
-          </div>
-          <select className={css.selectControl} value={period} onChange={event => { setPeriod(event.currentTarget.value) }} aria-label="统计周期">
-            <option>本周</option>
-            <option>近 30 天</option>
-            <option>本学期</option>
-          </select>
-        </div>
-      </div>
+    <div className={clsx(base.view, css.overviewView)} data-screen-label="Teacher Dashboard">
+      <div className={css.overviewLayout}>
+        <aside className={css.weekRail} aria-label="教学周次">
+          <span className={css.weekLabel}>周次</span>
+          {[6, 5, 4, 3, 2, 1].map(week => (
+            <button key={week} type="button" className={clsx(css.weekButton, week === 3 && css.weekActive, week === 2 && css.weekHasNote)} aria-current={week === 3 ? 'page' : undefined}>{week}</button>
+          ))}
+          <i className={css.weekLine}></i>
+        </aside>
 
-      <div className={css.metricGrid}>
-        {metrics.map(metric => (
-          <button key={metric.label} type="button" className={css.metricButton} onClick={() => { onNavigate(metric.tab) }}>
-            <span className={css.metricIcon}>{metric.icon}</span>
-            <span className={css.metricCopy}><small>{metric.label}</small><strong>{metric.value}</strong><span>{metric.note}</span></span>
-            <IconChevronRightOutline14 size={14} />
+        <div className={css.overviewSummary}>
+          <section className={css.overviewCard}>
+            <div className={css.lessonHeading}>
+              <div><strong>第 3 节 · 运动学单元复习</strong><span>09月16日 · 10:10 → 10:55</span></div>
+              <div><b>31′</b><em>上课中</em></div>
+            </div>
+            <div className={css.teacherRow}>
+              <span>周</span>
+              <div><small>任课教师</small><strong>{SCHOOL_CONTEXT.teacher} · {SCHOOL_CONTEXT.subject}</strong></div>
+              <em>明理楼 302</em>
+            </div>
+            <div className={css.lessonActions}>
+              <button type="button" onClick={() => { onNavigate('lessons') }} aria-label="打开教案"><IconChecklistOutline14 size={17} /></button>
+              <button type="button" onClick={() => { onNavigate('tools') }} aria-label="开始课堂工具"><IconGoalOutline16 size={17} /></button>
+              <button type="button" onClick={() => { onNavigate('classes') }} aria-label="班级管理"><IconUserOutline16 size={17} /></button>
+              <button type="button" onClick={() => { onNavigate('academics') }} aria-label="学业数据"><IconDataOutline16 size={17} /></button>
+            </div>
+          </section>
+
+          <button type="button" className={clsx(css.overviewCard, css.attendanceCard)} onClick={() => { onNavigate('classes') }}>
+            <div className={css.attendanceCopy}>
+              <strong>今日出勤</strong>
+              <span>{activeClass} · {attendance.total} 人</span>
+              <div><span><i></i><b>{attendance.present - attendance.late}</b> 按时到校</span><span><i></i><b>{attendance.late}</b> 迟到</span><span><i></i><b>{attendance.absent}</b> 请假</span></div>
+            </div>
+            <AttendanceRing count={attendance.present} total={attendance.total} />
           </button>
-        ))}
-      </div>
 
-      <div className={css.dashboardGrid}>
-        <section className={css.dataCard}>
-          <div className={css.cardHeading}>
-            <div><strong>物理成绩趋势</strong><span>{period}视图 · 满分 100 · n={activeClass === '高二（3）班' ? 42 : 40}</span></div>
-            <div className={css.legend}><span><i className={css.legendPrimary}></i>{activeClass}</span><span><i className={css.legendBaseline}></i>年级同层</span></div>
-          </div>
-          <TrendChart className={activeClass} />
-          <div className={css.insightNote}><IconDataOutline16 size={14} /><span>运动学单元均分连续 4 次上升，目前高于年级同层 1.2 分。</span></div>
-        </section>
+          <section className={css.overviewCard}>
+            <div className={css.trendHeading}>
+              <div><button type="button" onClick={() => { onNavigate('academics') }}>课堂表现趋势</button><span>物理测评均分 · {period}</span></div>
+              <select value={period} onChange={event => { setPeriod(event.currentTarget.value) }} aria-label="成绩趋势周期">
+                <option>近 5 次</option>
+                <option>本月</option>
+                <option>本学期</option>
+              </select>
+            </div>
+            <CompactTrend offset={classOffset} />
+            <button type="button" className={css.trendAlert} onClick={() => { onNavigate('academics') }}><IconWarningOutline16 size={13} /><span>“误差与有效数字”67%，低于目标 8 个百分点</span></button>
+          </section>
+        </div>
 
-        <section className={css.dataCard}>
-          <div className={css.cardHeading}>
-            <div><strong>今天的教学与班务</strong><span>4 项安排 · 1 项进行中</span></div>
-            <button type="button" className={css.linkButton} onClick={() => { onNavigate('schedule') }}>查看课表</button>
-          </div>
-          <div className={css.taskTimeline}>
-            {DASHBOARD_TASKS.map(task => (
-              <div key={`${task.time}-${task.title}`} className={css.taskItem}>
-                <span className={css.taskTime}>{task.time}</span>
-                <span className={css.taskDot}></span>
-                <div><strong>{task.title}</strong><span>{task.meta}</span></div>
-                <em>{task.status}</em>
+        <div className={css.classroomColumn}>
+          <section className={clsx(css.overviewCard, css.seatingCard)}>
+            <div className={css.seatToolbar}>
+              <div className={css.viewModes}>
+                <button type="button" className={css.viewModeActive}><IconDataOutline16 size={14} />座位视图</button>
+                <button type="button" onClick={() => { onNavigate('classes') }}><IconUserOutline16 size={14} />分组视图</button>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className={css.dataCard}>
-          <div className={css.cardHeading}>
-            <div><strong>知识点掌握</strong><span>运动学单元测 · 班级正确率</span></div>
-            <button type="button" className={css.linkButton} onClick={() => { onNavigate('academics') }}>学业详情</button>
-          </div>
-          <div className={css.masteryList}>
-            {KNOWLEDGE_MASTERY.map(item => (
-              <div key={item.name} className={css.masteryRow}>
-                <span>{item.name}</span>
-                <div><i style={{ width: `${item.value}%` }}></i></div>
-                <strong>{item.value}%</strong>
-                <small className={item.change >= 0 ? css.positive : css.negative}>{item.change >= 0 ? '+' : ''}{item.change}</small>
+              <div className={css.classPicker} aria-label="选择班级">
+                {CLASS_OPTIONS.map(className => <button key={className} type="button" className={activeClass === className ? css.classPickerActive : undefined} onClick={() => { setActiveClass(className) }}>{className}</button>)}
               </div>
-            ))}
-          </div>
-          <div className={css.insightNote}><IconGoalOutline16 size={14} /><span>“误差与有效数字”低于班级目标 8 个百分点，周三午间已安排专项辅导。</span></div>
-        </section>
+              <span className={css.selectedSeat}>{selectedSeat?.name} · {selectedSeat?.row}排{selectedSeat?.column}列</span>
+            </div>
+            <div className={css.overviewSeatGrid}>
+              {SEATS.map(seat => {
+                const tone = seatTone(seat.name, seat.status)
+                return (
+                  <button
+                    key={seat.id}
+                    type="button"
+                    className={clsx(css.overviewSeat, css[`overviewSeat_${tone}`], selectedSeatId === seat.id && css.overviewSeatSelected)}
+                    onClick={() => { setSelectedSeatId(seat.id) }}
+                    aria-pressed={selectedSeatId === seat.id}
+                  >
+                    {tone !== 'present' && tone !== 'absent' && <i>{tone === 'late' ? '迟' : ''}</i>}
+                    <span>{seat.name.slice(0, 1)}</span>
+                    <strong>{seat.name}{tone === 'absent' ? ' · 假' : ''}</strong>
+                  </button>
+                )
+              })}
+            </div>
+            <div className={css.seatStatusLegend}>
+              <strong>座位状态</strong>
+              <span><i></i>在班 35</span><span><i></i>举手 2</span><span><i></i>需关注 2</span><span><i></i>迟到 2</span><span><i></i>请假 1</span>
+              <em>底色 = 出勤态 · 角标 = 课堂标记 · 应到 42 / 实到 41</em>
+            </div>
+          </section>
 
-        <section className={css.dataCard}>
-          <div className={css.cardHeading}>
-            <div><strong>重点学生</strong><span>按最近 7 天证据自动汇总</span></div>
-            <button type="button" className={css.linkButton} onClick={() => { onNavigate('students') }}>全部学生</button>
+          <div className={css.classroomBottom}>
+            <button type="button" className={clsx(css.overviewCard, css.slideCard)} onClick={() => { onNavigate('lessons') }}>
+              <div><strong>当前幻灯片</strong><span>P12 / 24</span></div>
+              <i>课件截图</i>
+            </button>
+            <button type="button" className={clsx(css.overviewCard, css.quizCard)} onClick={() => { onNavigate('academics') }}>
+              <div><strong>课堂快测 · 实时正确率</strong><span>已交 38 / 41</span></div>
+              <div className={css.quizBars}>{KNOWLEDGE_MASTERY.map(item => <span key={item.name}><b>{item.value}%</b><i style={{ height: `${Math.max(28, item.value - 24)}px` }}></i><small>{item.name.replace('运动', '').replace('匀变速', '').replace('实验', '').replace('误差与', '')}</small></span>)}</div>
+            </button>
+            <section className={css.nextCard}>
+              <div><strong>下一步</strong><span>午间为高远、赵新程安排有效数字专项，12:40 明理楼 302。</span></div>
+              <button type="button" onClick={() => { onNavigate('students') }}>生成辅导单<IconChevronRightOutline14 size={14} /></button>
+            </section>
           </div>
-          <div className={css.compactTable}>
-            <div className={css.compactTableHeader}><span>学生</span><span>当前证据</span><span>单元分</span><span>下一步</span></div>
-            {RISK_STUDENTS.map(student => (
-              <button key={student.id} type="button" className={css.compactTableRow} onClick={() => { onNavigate('students') }}>
-                <span><i className={css.studentAvatar}>{student.name.slice(0, 1)}</i><strong>{student.name}</strong></span>
-                <span>{student.risk === '重点' ? '订正连续缺交' : student.risk === '观察' ? '课堂状态波动' : '近期记录待闭环'}</span>
-                <strong>{student.score}</strong>
-                <em>{student.risk === '重点' ? '午间辅导' : '本周观察'}</em>
-              </button>
-            ))}
-          </div>
-        </section>
+        </div>
       </div>
     </div>
   )

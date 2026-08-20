@@ -3,13 +3,9 @@ import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import {
   IconCheckOutline16,
-  IconChecklistOutline14,
   IconCloseOutline16,
-  IconDataOutline16,
   IconLightOutline16,
-  IconListPenOutline16,
   IconPlusOutline16,
-  IconSendOutline16,
   Tooltip,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
@@ -43,10 +39,27 @@ const SCENES: readonly { id: Scene, label: string }[] = [
 ]
 
 const PLAN_ITEMS = [
-  { id: 'p1', time: '09:00', title: '整理产品改版反馈', meta: '工作 · 预计 45 分钟', done: true },
-  { id: 'p2', time: '11:00', title: '项目周会与里程碑确认', meta: '澄明计划 · 会议', done: false },
-  { id: 'p3', time: '15:30', title: '完成工作台原型第二轮', meta: '个人项目 · 深度工作', done: false },
-  { id: 'p4', time: '20:30', title: '阅读英文文章并整理生词', meta: '英语学习 · 30 分钟', done: false },
+  { id: 'p1', time: '09:00', duration: '45 分钟', title: '整理产品改版反馈', meta: '工作 · 预计 45 分钟', project: '产品迭代', scene: '工作', done: true },
+  { id: 'p2', time: '11:00', duration: '60 分钟', title: '项目周会与里程碑确认', meta: '澄明计划 · 会议', project: '澄明计划', scene: '工作', running: true, done: false },
+  { id: 'p3', time: '15:30', duration: '120 分钟', title: '完成工作台原型第二轮', meta: '个人项目 · 深度工作', project: '个人项目', scene: '深度工作', important: true, done: false },
+  { id: 'p4', time: '20:30', duration: '30 分钟', title: '阅读英文文章并整理生词', meta: '英语学习 · 30 分钟', project: '英语表达升级', scene: '学习', done: false },
+] as const
+
+const FOCUS_HEAT = [
+  '30012032010320130201',
+  '01230103201203102313',
+  '12010320130201230110',
+  '10203012013021023101',
+] as const
+
+const FOCUS_DAYS = ['周一', '周三', '周五', '周日'] as const
+const FOCUS_MONTHS = ['三月', '四月', '五月', '六月', '七月', '八月'] as const
+const FOCUS_LEVELS = ['heat0', 'heat1', 'heat2', 'heat3'] as const
+
+const GOAL_RANGES = [
+  { label: '本周', retention: 94, goal: 76, duration: 68 },
+  { label: '本月', retention: 91, goal: 64, duration: 72 },
+  { label: '全年', retention: 88, goal: 81, duration: 59 },
 ] as const
 
 const PROJECTS = [
@@ -90,15 +103,6 @@ function useCenterColumnBox(): CenterColumnBox {
   return box
 }
 
-function TabIcon({ tab }: { tab: PersonalTab }) {
-  if (tab === 'today') return <IconChecklistOutline14 size={15} />
-  if (tab === 'inbox') return <IconSendOutline16 size={15} />
-  if (tab === 'projects') return <IconDataOutline16 size={15} />
-  if (tab === 'learning') return <IconListPenOutline16 size={15} />
-  if (tab === 'ideas') return <IconLightOutline16 size={15} />
-  return <IconDataOutline16 size={15} />
-}
-
 function SectionTitle({ title, note, action }: { title: string, note?: string, action?: ReactNode }) {
   return <div className={css.sectionTitle}><div><strong>{title}</strong>{note !== undefined && <span>{note}</span>}</div>{action}</div>
 }
@@ -120,60 +124,79 @@ function TodayView({ scene, completed, togglePlan, goInbox, goProjects }: {
   goInbox: () => void
   goProjects: () => void
 }) {
-  const sceneCopy: Record<Scene, { eyebrow: string, title: string, note: string }> = {
-    morning: { eyebrow: '早晨场景', title: '早上好，先看清今天最重要的三件事。', note: '4 项计划 · 1 项已完成 · 2 小时 35 分钟专注时间' },
-    work: { eyebrow: '工作场景', title: '保持节奏，下一段专注时间从 15:30 开始。', note: '当前项目：DSH 演示片 · 里程碑还剩 3 天' },
-    study: { eyebrow: '学习场景', title: '今晚继续英语阅读，复习 12 个待掌握生词。', note: '连续学习 18 天 · 本周已完成 3 次阅读' },
-    evening: { eyebrow: '晚上场景', title: '今天完成得不错，留 10 分钟做一个小复盘。', note: '已完成 3 项 · 新收集 4 条 · 待整理 2 条' },
+  const [rangeIndex, setRangeIndex] = useState(0)
+  const sceneCopy: Record<Scene, { meta: string, step: string }> = {
+    morning: { meta: '场景「早晨」 · 07:00 – 09:00 · 已过 1 小时', step: '收集' },
+    work: { meta: '场景「工作」 · 09:00 – 18:00 · 已过 6 小时', step: '执行' },
+    study: { meta: '场景「学习」 · 19:00 – 21:00 · 未开始', step: '学习' },
+    evening: { meta: '场景「晚上」 · 21:00 – 23:00 · 未开始', step: '复盘' },
   }
   const copy = sceneCopy[scene]
+  const doneCount = PLAN_ITEMS.filter(item => item.done || completed.includes(item.id)).length
+  const range = GOAL_RANGES[rangeIndex] ?? GOAL_RANGES[0]
   return (
-    <div className={css.view}>
-      <section className={css.hero}>
-        <div><span>{copy.eyebrow}</span><h2>{copy.title}</h2><p>{copy.note}</p></div>
-        <div className={css.heroDate}><strong>17</strong><span>八月 · 周一</span></div>
+    <div className={clsx(css.view, css.todayView)}>
+      <section className={css.progressHero}>
+        <header>
+          <div><strong>今日进度分布</strong><span>{copy.meta}</span></div>
+          <div className={css.progressFlow}>
+            {['收集', '整理', '执行', '学习', '复盘'].map(item => <span className={item === copy.step ? css.activeFlowStep : undefined} key={item}>{item}</span>)}
+          </div>
+        </header>
+        <div className={css.progressMetrics}>
+          <button type="button" onClick={goProjects}><span>今日计划</span><strong>{PLAN_ITEMS.length}</strong></button>
+          <div><span>已完成</span><strong>{doneCount}</strong></div>
+          <div><span>专注时长</span><strong>2h35m</strong></div>
+          <div><span>待复习生词</span><strong>12</strong></div>
+          <button type="button" onClick={goInbox}><span>收集条数</span><strong>8</strong></button>
+        </div>
       </section>
-      <FlowStrip active={2} />
-      <div className={css.todayGrid}>
-        <section className={css.cardWide}>
-          <SectionTitle title="每日计划" note={`${completed.length + 1} / ${PLAN_ITEMS.length} 已完成`} action={<button type="button" className={css.textButton}>查看本周</button>} />
-          <div className={css.planList}>
-            {PLAN_ITEMS.map(item => {
-              const done = item.done || completed.includes(item.id)
-              return (
-                <button type="button" className={clsx(done && css.planDone)} key={item.id} onClick={() => { if (!item.done) togglePlan(item.id) }}>
-                  <span className={css.planCheck}>{done && <IconCheckOutline16 size={13} />}</span>
-                  <time>{item.time}</time><div><strong>{item.title}</strong><small>{item.meta}</small></div>
-                </button>
-              )
+
+      <div className={css.dashboardRow}>
+        <section className={css.focusCard}>
+          <header><strong>专注热力图</strong><div className={css.heatLegend}><span>少</span>{FOCUS_LEVELS.map(level => <i className={css[level]} key={level} />)}<span>多</span></div></header>
+          <div className={css.heatMonths}>{FOCUS_MONTHS.map(month => <span key={month}>{month}</span>)}</div>
+          <div className={css.heatRows}>
+            {FOCUS_HEAT.map((row, rowIndex) => {
+              const day = FOCUS_DAYS[rowIndex] ?? ''
+              return <div key={day}><span>{day}</span><div>{row.split('').map((level, cellIndex) => {
+                const levelIndex = Number(level) as 0 | 1 | 2 | 3
+                return <i className={css[FOCUS_LEVELS[levelIndex]]} title={`${day} · ${levelIndex * 45} 分钟`} key={`${rowIndex}-${cellIndex}`} />
+              })}</div></div>
             })}
           </div>
+          <footer><span>连续 18 天</span><span>最长 26 天</span><small>本月平均每天 2h12m</small></footer>
         </section>
-        <section className={css.card}>
-          <SectionTitle title="快速备忘" note="随手记下，不打断当前节奏" />
-          <div className={css.memoPaper}><p>下次视频开头直接对比“固定软件”和“可以生长的软件”。</p><span>今天 08:42 · 灵感</span></div>
-          <button type="button" className={css.ghostButton}>+ 写一条备忘</button>
-        </section>
-        <section className={css.card}>
-          <SectionTitle title="万能收件箱" note="2 条待整理" action={<button type="button" className={css.textButton} onClick={goInbox}>打开</button>} />
-          <button type="button" className={css.inboxPreview} onClick={goInbox}><span>英文文章</span><strong>How great teams build learning systems</strong><small>等待整理 · 6 分钟前</small></button>
-          <button type="button" className={css.inboxPreview} onClick={goInbox}><span>语音备忘</span><strong>个人工作台演示顺序</strong><small>已转成文字 · 28 分钟前</small></button>
-        </section>
-        <section className={css.cardWide}>
-          <SectionTitle title="正在推进的项目" note="3 个活跃项目" action={<button type="button" className={css.textButton} onClick={goProjects}>进入项目空间</button>} />
-          <div className={css.projectPreviewGrid}>
-            {PROJECTS.map(project => <button type="button" key={project.name} onClick={goProjects}><span className={css[project.color]} /><strong>{project.name}</strong><small>{project.note}</small><div><i style={{ width: `${project.progress}%` }} /></div><em>{project.progress}% · {project.tasks} 项</em></button>)}
+
+        <section className={css.goalCard}>
+          <header><strong>学习与目标</strong><button type="button" onClick={() => { setRangeIndex(value => (value + 1) % GOAL_RANGES.length) }}>{range.label}<span>▾</span></button></header>
+          <div className={css.goalChart}>
+            <div><span>留存 {range.retention}%</span><i className={css.retentionBar} style={{ height: `${range.retention * 0.8}%` }} /></div>
+            <div><span>目标 {range.goal}%</span><i className={css.goalBar} style={{ height: `${range.goal * 0.8}%` }} /></div>
+            <div><span>时长 {range.duration}%</span><i className={css.durationBar} style={{ height: `${range.duration * 0.8}%` }} /></div>
           </div>
-        </section>
-        <section className={css.card}>
-          <SectionTitle title="英语学习" note="连续 18 天" />
-          <div className={css.studySummary}><strong>12</strong><span>个待复习生词</span><div><i style={{ width: '72%' }} /></div><small>本周目标完成 72%</small></div>
-        </section>
-        <section className={css.card}>
-          <SectionTitle title="今日灵感" note="3 条新想法" />
-          <div className={css.ideaChips}><span>软件基座</span><span>职业工作台</span><span>信息闭环</span><p>“真正个性化的软件，不是换颜色，而是改变信息流。”</p></div>
+          <footer><span>12 个生词待复习</span><button type="button" onClick={goInbox}>开始复习 →</button></footer>
         </section>
       </div>
+
+      <section className={css.taskCard}>
+        <header><strong>任务明细</strong><span>共 {PLAN_ITEMS.length} 项 · {doneCount} 项已完成</span></header>
+        <div className={css.taskTableHead}><span /><span>任务</span><span>所属项目</span><span>场景</span><span>计划时间</span><span>状态</span></div>
+        <div className={css.taskTableBody}>
+          {PLAN_ITEMS.map(item => {
+            const done = item.done || completed.includes(item.id)
+            const status = done ? '已完成' : 'running' in item && item.running ? '进行中' : '待开始'
+            return (
+              <button type="button" className={clsx(done && css.taskRowDone)} key={item.id} onClick={() => { if (!item.done) togglePlan(item.id) }}>
+                <span className={css.taskCheck}>{done && <IconCheckOutline16 size={11} />}</span>
+                <span className={css.taskName}><strong>{item.title}</strong>{'important' in item && item.important && !done && <em>最重要</em>}</span>
+                <span>{item.project}</span><span>{item.scene}</span><span>{item.time} · {item.duration}</span><span className={clsx(css.taskStatus, done ? css.statusDone : status === '进行中' ? css.statusRunning : css.statusPending)}>{status}</span>
+              </button>
+            )
+          })}
+        </div>
+        <small>点任意一行可标记完成 / 取消完成</small>
+      </section>
     </div>
   )
 }
@@ -342,14 +365,22 @@ function ModulePicker({ added, toggle, close }: { added: readonly string[], togg
     ['习惯状态', '睡眠、运动与连续记录'],
     ['生活管理', '采购、账单与家庭事项'],
   ] as const
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') close()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => { window.removeEventListener('keydown', handleKeyDown) }
+  }, [close])
   return (
-    <div className={css.pickerBackdrop}>
-      <section className={css.modulePicker} aria-label="添加模块">
-        <header><div><strong>添加工作台模块</strong><span>选择一个模块加入当前布局 · 仅视觉演示</span></div><button type="button" aria-label="关闭添加模块" onClick={close}><IconCloseOutline16 /></button></header>
+    <div className={css.pickerBackdrop} onClick={close}>
+      <section className={css.modulePicker} aria-label="添加模块" onClick={event => { event.stopPropagation() }}>
+        <header><div><strong>工作台模块</strong><span>选择「今天」页要显示的模块</span></div><button type="button" aria-label="关闭添加模块" onClick={close}><IconCloseOutline16 /></button></header>
         <div>{modules.map(([name, note]) => {
           const active = added.includes(name)
-          return <button type="button" className={active ? css.addedModule : undefined} key={name} onClick={() => { toggle(name) }}><span><IconLightOutline16 size={17} /></span><div><strong>{name}</strong><small>{note}</small></div><em>{active ? '已添加' : '添加'}</em></button>
+          return <button type="button" className={active ? css.addedModule : undefined} aria-pressed={active} key={name} onClick={() => { toggle(name) }}><div><strong>{name}</strong><small>{note}</small></div><em aria-hidden="true"><i /></em></button>
         })}</div>
+        <footer><span>Esc 关闭</span><button type="button" onClick={close}>完成</button></footer>
       </section>
     </div>
   )
@@ -401,7 +432,7 @@ function PersonalWorkbenchPanel({ panelId, t, onClose }: { panelId: string, t: (
         </div>
       </header>
       <nav className={css.tabs} aria-label="个人工作台功能">
-        {TABS.map(tab => <button type="button" className={activeTab === tab.id ? css.activeTab : undefined} key={tab.id} onClick={() => { setActiveTab(tab.id) }}><TabIcon tab={tab.id} /><span>{t(tab.key)}</span>{tab.id === 'inbox' && <em>{processed ? 1 : 2}</em>}</button>)}
+        {TABS.map(tab => <button type="button" className={activeTab === tab.id ? css.activeTab : undefined} key={tab.id} onClick={() => { setActiveTab(tab.id) }}><span>{t(tab.key)}</span>{tab.id === 'inbox' && <em>{processed ? 1 : 2}</em>}</button>)}
       </nav>
       <main className={css.content}>
         {activeTab === 'today' && <TodayView scene={scene} completed={completedPlan} togglePlan={togglePlan} goInbox={() => { setActiveTab('inbox') }} goProjects={() => { setActiveTab('projects') }} />}

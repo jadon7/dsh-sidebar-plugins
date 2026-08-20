@@ -6,7 +6,7 @@ export const zh = {
   title: '教师工作台',
   subtitle: '星海实验中学 · 高二（3）班 · 物理',
   close: '关闭工作台',
-  'tab.dashboard': 'Dashboard',
+  'tab.dashboard': '班级总览',
   'tab.schedule': '排课表',
   'tab.records': '课程记录',
   'tab.lessons': '教案管理',

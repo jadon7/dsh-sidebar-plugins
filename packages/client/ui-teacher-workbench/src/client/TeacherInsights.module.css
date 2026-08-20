@@ -1111,3 +1111,1057 @@
     justify-content: flex-start;
   }
 }
+
+/* Scheme D · teacher overview */
+.overviewView {
+  height: 100%;
+  min-height: 620px;
+}
+
+.overviewLayout {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 50px 352px minmax(540px, 1fr);
+  gap: 14px;
+}
+
+.weekRail {
+  min-height: 0;
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.weekLabel {
+  margin-bottom: 2px;
+  color: #9aa3b2;
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+}
+
+.weekButton {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #c2c8d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.weekButton:hover {
+  background: #fff;
+  color: #5a6373;
+  box-shadow: 0 1px 3px rgba(27, 34, 48, 0.07);
+}
+
+.weekActive,
+.weekActive:hover {
+  background: #2f6bff;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(47, 107, 255, 0.3);
+  font-weight: 700;
+}
+
+.weekHasNote {
+  position: relative;
+  background: #fff;
+  color: #5a6373;
+  box-shadow: 0 1px 3px rgba(27, 34, 48, 0.07);
+}
+
+.weekHasNote::after {
+  position: absolute;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f0a22e;
+  content: '';
+}
+
+.weekLine {
+  width: 1px;
+  flex: 1;
+  margin-top: 4px;
+  background: linear-gradient(#e3e8f0, rgba(227, 232, 240, 0));
+}
+
+.overviewSummary,
+.classroomColumn {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.overviewCard {
+  min-width: 0;
+  padding: 18px;
+  border: 0;
+  border-radius: 20px;
+  background: #fff;
+  color: #1b2230;
+  box-shadow: 0 2px 10px rgba(27, 34, 48, 0.06);
+  box-sizing: border-box;
+}
+
+.lessonHeading,
+.teacherRow,
+.lessonActions,
+.attendanceCard,
+.trendHeading,
+.seatToolbar,
+.viewModes,
+.classPicker,
+.seatStatusLegend,
+.slideCard > div,
+.quizCard > div:first-child,
+.nextCard > button {
+  display: flex;
+  align-items: center;
+}
+
+.lessonHeading {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lessonHeading > div:first-child {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.lessonHeading > div:first-child strong {
+  font-size: 15.5px;
+  line-height: 1.3;
+}
+
+.lessonHeading > div:first-child span {
+  color: #6b7480;
+  font-size: 11.5px;
+}
+
+.lessonHeading > div:last-child {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.lessonHeading b,
+.lessonHeading em {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-style: normal;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.lessonHeading b {
+  background: #fff0ea;
+  color: #f0602e;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+}
+
+.lessonHeading em {
+  background: #f0602e;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.teacherRow {
+  margin-top: 12px;
+  padding: 11px 0;
+  border-top: 1px solid #f0f3f8;
+  border-bottom: 1px solid #f0f3f8;
+  gap: 10px;
+}
+
+.teacherRow > span {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #eaf0ff;
+  color: #2f6bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.teacherRow > div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.teacherRow small {
+  color: #6b7480;
+  font-size: 11px;
+}
+
+.teacherRow strong {
+  font-size: 13px;
+}
+
+.teacherRow em {
+  margin-left: auto;
+  color: #6b7480;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.lessonActions {
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.lessonActions button {
+  height: 40px;
+  flex: 1;
+  padding: 0;
+  border: 1px solid #eaedf3;
+  border-radius: 12px;
+  background: #fff;
+  color: #6b7480;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lessonActions button:first-child {
+  border-color: transparent;
+  background: #eaf0ff;
+  color: #2f6bff;
+}
+
+.lessonActions button:nth-child(2) {
+  border-color: transparent;
+  background: #e9f7ef;
+  color: #1f9d63;
+}
+
+.lessonActions button:hover {
+  border-color: #b9cdff;
+  background: #f7f9fc;
+  color: #2f6bff;
+}
+
+.attendanceCard {
+  width: 100%;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.attendanceCard:hover {
+  box-shadow: 0 6px 18px rgba(27, 34, 48, 0.1);
+}
+
+.attendanceCopy {
+  min-width: 0;
+  flex: 1;
+}
+
+.attendanceCopy > strong {
+  display: block;
+  font-size: 15px;
+}
+
+.attendanceCopy > span {
+  display: block;
+  margin-top: 6px;
+  color: #6b7480;
+  font-size: 11.5px;
+}
+
+.attendanceCopy > div {
+  margin-top: 14px;
+  display: grid;
+  gap: 9px;
+}
+
+.attendanceCopy > div span {
+  color: #5a6373;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+}
+
+.attendanceCopy i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1f9d63;
+}
+
+.attendanceCopy > div span:nth-child(2) i {
+  background: #f0a22e;
+}
+
+.attendanceCopy > div span:nth-child(3) i {
+  background: #c2c8d4;
+}
+
+.attendanceCopy b {
+  color: #1b2230;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+}
+
+.attendanceRing {
+  width: 132px;
+  height: 132px;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.attendanceRing svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ringTrack,
+.ringPresent,
+.ringLate {
+  fill: none;
+  stroke-width: 13;
+}
+
+.ringTrack {
+  stroke: #f0f3f8;
+}
+
+.ringPresent,
+.ringLate {
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 66px 66px;
+}
+
+.ringPresent {
+  stroke: #1f9d63;
+}
+
+.ringLate {
+  stroke: #f0a22e;
+  transform: rotate(148deg);
+}
+
+.attendanceRing > span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.attendanceRing strong {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.attendanceRing small {
+  color: #6b7480;
+  font-size: 11.5px;
+}
+
+.overviewSummary > .overviewCard:last-child {
+  flex: 1;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trendHeading {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.trendHeading > div {
+  display: grid;
+  gap: 6px;
+}
+
+.trendHeading button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #1b2230;
+  text-align: left;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trendHeading span {
+  color: #6b7480;
+  font-size: 11.5px;
+}
+
+.trendHeading select {
+  height: 26px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #e9f7ef;
+  color: #1f9d63;
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.overviewTrendChart {
+  width: 100%;
+  height: 118px;
+  margin-top: 8px;
+  display: block;
+  overflow: visible;
+}
+
+.overviewTrendGrid {
+  stroke: #f0f3f8;
+  stroke-width: 1;
+}
+
+.overviewTrendLine {
+  fill: none;
+  stroke: #2f6bff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.overviewTrendPoint {
+  fill: #fff;
+  stroke: #2f6bff;
+  stroke-width: 3;
+}
+
+.overviewTrendLabels {
+  fill: #9aa3b2;
+  font-size: 10px;
+}
+
+.overviewTrendValue {
+  fill: #1b2230;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trendAlert {
+  width: 100%;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: #f7f9fc;
+  color: #5a6373;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  font: inherit;
+  font-size: 11.5px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.trendAlert svg {
+  color: #f0602e;
+}
+
+.seatingCard {
+  flex: 1;
+  min-height: 430px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.seatToolbar {
+  flex: 0 0 auto;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.viewModes,
+.classPicker {
+  gap: 6px;
+}
+
+.viewModes button,
+.classPicker button {
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #f2f5f9;
+  color: #5a6373;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.viewModes .viewModeActive {
+  background: #1b2230;
+  color: #fff;
+  font-weight: 600;
+}
+
+.classPicker {
+  padding-left: 10px;
+  border-left: 1px solid #eaedf3;
+}
+
+.classPicker button {
+  padding: 0 10px;
+  border: 1px solid #eaedf3;
+  background: #fff;
+}
+
+.classPicker .classPickerActive {
+  border-color: #b9cdff;
+  background: #eaf0ff;
+  color: #2f6bff;
+  font-weight: 600;
+}
+
+.selectedSeat {
+  margin-left: auto;
+  color: #6b7480;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.overviewSeatGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(58px, 1fr));
+  grid-template-rows: repeat(6, minmax(58px, 1fr));
+  gap: 9px;
+}
+
+.overviewSeat {
+  min-width: 0;
+  min-height: 58px;
+  padding: 7px 4px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #f7f9fc;
+  color: #3a414d;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.overviewSeat:hover,
+.overviewSeatSelected {
+  outline: 2px solid #2f6bff;
+  outline-offset: -2px;
+}
+
+.overviewSeat > span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eaf0ff;
+  color: #2f6bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.overviewSeat > strong {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10.5px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.overviewSeat > i {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  font-size: 0;
+  font-style: normal;
+}
+
+.overviewSeat_hand {
+  border-color: #c7ebd8;
+  background: #e9f7ef;
+  color: #12784a;
+}
+
+.overviewSeat_hand > span {
+  background: #c7ebd8;
+  color: #12784a;
+}
+
+.overviewSeat_concern {
+  border-color: #fce3be;
+  background: #fff6ea;
+  color: #8a5a08;
+}
+
+.overviewSeat_concern > span {
+  background: #fce3be;
+  color: #8a5a08;
+}
+
+.overviewSeat_late {
+  border-color: #ded6fa;
+  background: #f3f1fd;
+  color: #5945c4;
+}
+
+.overviewSeat_late > span {
+  background: #e5dffa;
+  color: #5945c4;
+}
+
+.overviewSeat_late > i {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.overviewSeat_absent {
+  border-color: #d8dee9;
+  border-style: dashed;
+  background: #f4f6fa;
+  color: #6b7480;
+}
+
+.overviewSeat_absent > span {
+  background: #e7ebf2;
+  color: #6b7480;
+}
+
+.seatStatusLegend {
+  flex: 0 0 auto;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid #f0f3f8;
+  gap: 14px;
+  color: #6b7480;
+  font-size: 10.5px;
+  line-height: 1;
+}
+
+.seatStatusLegend strong {
+  color: #3a414d;
+  font-size: 11px;
+}
+
+.seatStatusLegend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.seatStatusLegend span i {
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: #edf1f7;
+}
+
+.seatStatusLegend span:nth-of-type(2) i {
+  background: #1f9d63;
+}
+
+.seatStatusLegend span:nth-of-type(3) i {
+  background: #f0a22e;
+}
+
+.seatStatusLegend span:nth-of-type(4) i {
+  background: #6b57d6;
+}
+
+.seatStatusLegend span:nth-of-type(5) i {
+  border: 1px dashed #b9c1ce;
+  background: transparent;
+}
+
+.seatStatusLegend em {
+  margin-left: auto;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.classroomBottom {
+  height: 186px;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 300px minmax(320px, 1fr) 250px;
+  gap: 14px;
+}
+
+.slideCard,
+.quizCard {
+  width: 100%;
+  padding: 16px 18px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.slideCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.slideCard > div,
+.quizCard > div:first-child {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.slideCard strong,
+.quizCard strong,
+.nextCard strong {
+  font-size: 14px;
+}
+
+.slideCard > div span {
+  color: #6b7480;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 10.5px;
+}
+
+.slideCard > i {
+  flex: 1;
+  margin-top: 10px;
+  border-radius: 14px;
+  background: repeating-linear-gradient(135deg, #eef1f6 0 8px, #f7f9fc 8px 16px);
+  color: #9aa3b2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 10.5px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+}
+
+.quizCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.quizCard > div:first-child span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f2f5f9;
+  color: #5a6373;
+  font-size: 10.5px;
+}
+
+.quizBars {
+  flex: 1;
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.quizBars > span {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quizBars b {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+}
+
+.quizBars i {
+  width: 100%;
+  border-radius: 10px 10px 4px 4px;
+  background: #2f6bff;
+}
+
+.quizBars > span:nth-child(2) i {
+  background: #5c8cff;
+}
+
+.quizBars > span:nth-child(3) i {
+  background: #8fadff;
+}
+
+.quizBars > span:nth-child(4) i {
+  background: #f0a22e;
+}
+
+.quizBars > span:nth-child(5) i {
+  background: #f0602e;
+}
+
+.quizBars > span:nth-child(5) b {
+  color: #f0602e;
+}
+
+.quizBars small {
+  max-width: 100%;
+  overflow: hidden;
+  color: #6b7480;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 9.5px;
+}
+
+.nextCard {
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: #1b2230;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.nextCard > div {
+  display: grid;
+  gap: 8px;
+}
+
+.nextCard > div span {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.nextCard > button {
+  min-height: 38px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 12px;
+  background: #2f6bff;
+  color: #fff;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Scheme D coverage for the remaining teacher views */
+.dataCard {
+  padding: 18px;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(27, 34, 48, 0.06);
+}
+
+.metricButton {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(27, 34, 48, 0.06);
+}
+
+.metricButton:hover,
+.metricSelected {
+  border-color: transparent;
+  background: #fff;
+  box-shadow: 0 5px 16px rgba(47, 107, 255, 0.12);
+}
+
+.metricIcon {
+  border-radius: 12px;
+}
+
+.selectControl {
+  border-color: #eaedf3;
+  border-radius: 12px;
+}
+
+.statusTag {
+  min-height: 24px;
+  padding: 0 9px;
+}
+
+.tableCard {
+  padding: 16px 18px 12px;
+}
+
+.habitTableRow,
+.recordTableRow,
+.compactTableRow,
+.groupTable button,
+.attendanceTable button {
+  border-top-color: #f0f3f8;
+}
+
+@container (max-width: 1339px) {
+  .overviewLayout {
+    grid-template-columns: 50px 300px minmax(500px, 1fr);
+  }
+
+  .classroomBottom {
+    grid-template-columns: minmax(320px, 1fr) 250px;
+  }
+
+  .slideCard {
+    display: none;
+  }
+
+  .seatStatusLegend em {
+    display: none;
+  }
+}
+
+@container (max-width: 1099px) {
+  .overviewView {
+    min-height: 900px;
+  }
+
+  .overviewLayout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto minmax(520px, 1fr);
+  }
+
+  .weekRail {
+    padding: 0;
+    flex-direction: row;
+  }
+
+  .weekLabel {
+    width: 36px;
+    margin: 0 4px 0 0;
+    text-align: center;
+  }
+
+  .weekLine {
+    width: auto;
+    height: 1px;
+    flex: 1;
+    margin: 0 0 0 4px;
+    background: linear-gradient(90deg, #e3e8f0, rgba(227, 232, 240, 0));
+  }
+
+  .overviewSummary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overviewSummary > .overviewCard:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .overviewSummary > .overviewCard:last-child {
+    min-height: 220px;
+  }
+
+  .classroomColumn {
+    min-height: 520px;
+  }
+
+  .overviewSeatGrid {
+    grid-template-columns: repeat(6, minmax(62px, 1fr));
+    grid-template-rows: repeat(7, minmax(56px, 1fr));
+  }
+
+  .classroomBottom {
+    height: 150px;
+  }
+}
+
+@container (max-width: 889px) {
+  .overviewSummary {
+    grid-template-columns: 1fr;
+  }
+
+  .overviewSummary > .overviewCard:first-child {
+    grid-column: auto;
+  }
+
+  .overviewSeatGrid {
+    grid-template-columns: repeat(4, minmax(62px, 1fr));
+    grid-template-rows: repeat(11, minmax(58px, 1fr));
+  }
+
+  .seatingCard {
+    min-height: 820px;
+  }
+
+  .classroomBottom {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .nextCard {
+    min-height: 140px;
+  }
+
+  .selectedSeat {
+    width: 100%;
+    margin-left: 0;
+  }
+}

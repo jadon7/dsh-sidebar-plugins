@@ -129,6 +129,7 @@ function TeacherWorkbenchPanel({
 }) {
   const box = useCenterColumnBox()
   const [activeTab, setActiveTab] = useState<WorkbenchTab>('dashboard')
+  const activeLabel = t(TABS.find(tab => tab.id === activeTab)?.key ?? 'tab.dashboard')
   return (
     <aside
       id={panelId}
@@ -139,13 +140,33 @@ function TeacherWorkbenchPanel({
     >
       <header className={css.header}>
         <div className={css.heading}>
-          <strong className={css.title}>{t('title')}</strong>
-          <span className={css.subtitle}>{t('subtitle')}</span>
+          <span className={css.breadcrumb}>{t('title')} <i>›</i> 高二（3）班 · 物理 <i>›</i> {activeLabel}</span>
+          <div className={css.titleRow}>
+            <strong className={css.title}>高二（3）班 · 运动学单元</strong>
+            <span className={css.liveStatus}>第 3 周 · 上课中</span>
+          </div>
         </div>
         <div className={css.headerActions}>
-          <span className={css.term}>第 3 周 · 9月14–18日</span>
+          <button type="button" className={css.iconButton} onClick={() => { setActiveTab('classes') }} aria-label="班级管理">
+            <IconChecklistOutline14 size={17} />
+          </button>
+          <button type="button" className={css.iconButton} onClick={() => { setActiveTab('academics') }} aria-label="学业数据">
+            <IconDataOutline16 size={17} />
+          </button>
+          <button type="button" className={css.iconButton} onClick={() => { setActiveTab('family') }} aria-label="家校沟通">
+            <IconSendOutline16 size={17} />
+          </button>
+          <button type="button" className={css.iconButton} onClick={() => { setActiveTab('lessons') }} aria-label="教案管理">
+            <IconListPenOutline16 size={17} />
+          </button>
+          <button type="button" className={css.iconButton} onClick={() => { setActiveTab('schedule') }} aria-label="排课表">
+            <IconLightOutline16 size={17} />
+          </button>
+          <button type="button" className={clsx(css.iconButton, css.iconButtonPrimary)} onClick={() => { setActiveTab('tools') }} aria-label="课堂工具">
+            <IconThinkOutline16 size={17} />
+          </button>
           <button type="button" className={css.closeButton} onClick={onClose} aria-label={t('close')}>
-            <IconCloseOutline16 size={15} />
+            <IconCloseOutline16 size={17} />
           </button>
         </div>
       </header>
