@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;font-family:'Noto Sans SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#2a78d6}a:hover{color:#1a5aa8}</style></helmet>
+
+<section style="width:max-content;padding:56px 60px 72px;display:flex;flex-direction:column;gap:44px">
+
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:920px">
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <span style="font:600 11px ui-monospace,Menlo,monospace;padding:3px 8px;background:#1a1a1a;color:#fff;border-radius:5px">5b</span>
+      <span style="font:700 22px/1.3 'Noto Sans SC',system-ui;color:#1a1a1a">Token 德州 · 牌局状态全集</span>
+    </div>
+    <p style="margin:0;font:400 13px/1.75 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6);text-wrap:pretty">全部 11 屏都由同一个组件 <b style="color:#1a1a1a">Poker-Table</b> 渲染，切 <code style="font:600 12px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">state</code> 一个属性即可。<a href="#s-flop">翻牌</a> 是 5a-C 定稿那一帧，其余 10 屏在它之上只改数据、不改布局。四色牌可用 <code style="font:600 12px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">fourColorDeck</code> 关掉换回传统双色。</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:22px;padding:16px 20px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.1)">
+      <div style="display:flex;align-items:flex-start;gap:10px;max-width:420px">
+        <span style="flex:none;margin-top:1px;font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:5px">黑 / 蓝</span>
+        <span style="font:400 12px/1.65 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6)">标签是黑色或蓝色（蓝＝定稿基准）的画面，文案与数据能对上仓库里的 <code style="font:600 11.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">locales.ts</code> / <code style="font:600 11.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">PokerPanel.tsx</code>。</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;max-width:460px">
+        <span style="flex:none;margin-top:1px;font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">红标</span>
+        <span style="font:400 12px/1.65 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6)">净新增流程，源码里还不存在，文案是设计提案，<b style="color:#1a1a1a">需要产品先拍板再实现</b>。11 屏里只有 <b style="color:#1a1a1a">flop</b> 和 <b style="color:#1a1a1a">invite</b> 是纯换皮，其余 9 屏都要新增状态逻辑。</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font:700 15px 'Noto Sans SC',system-ui;color:#1a1a1a">一 · 牌局进程</span>
+      <span style="flex:1;height:1px;background:rgba(0,0,0,.12)"></span>
+      <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.45)">公共牌翻开数量 0 / 3 / 4 / 5，底池与快捷下注默认值随街递进</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:28px">
+
+      <div id="s-preflop" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">preflop</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">翻牌前</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">5 张牌背，小盲 500K + 大盲 1M 已在池，底池 1.5M</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="preflop" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-flop" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#4d6bfe;color:#fff;border-radius:5px">flop</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">翻牌 · 5a-C 定稿</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">基准帧，所有间距色值以此为准</span>
+        </div>
+        <div style="width:1440px;height:900px;border:2px solid #4d6bfe;border-radius:8px;box-shadow:0 4px 18px rgba(77,107,254,.22);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="flop" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-turn" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">turn</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">转牌</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">无人下注 → 跟注按钮收起，只剩弃牌 / 下注</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="turn" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-river" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">river</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">河牌</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">五张全开，K♦ 是满色卡面</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="river" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font:700 15px 'Noto Sans SC',system-ui;color:#1a1a1a">二 · 回合与下注</span>
+      <span style="flex:1;height:1px;background:rgba(0,0,0,.12)"></span>
+      <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.45)">谁的回合，以及余额顶到上限时的处理</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:28px">
+
+      <div id="s-waiting" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">waiting</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">等别人回合</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">你已下注 1.28M（底池 1.7M → 2.98M，桌上多一枚你的筹码）→ 弃牌/跟注收起，主按钮变「等待中」；Kai 挂 12s 倒计时环</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="waiting" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-allin" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">allin</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">筹码不足 · 只能全下</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">滑杆锁 100%，主按钮转珊瑚色「全下」，跟注按钮消失</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="allin" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-showdown" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">showdown</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">亮牌结算 · 赢家高亮</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">未弃牌的人翻出 30×42 小牌，弃牌的降到 45% 挂「已弃牌」</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="showdown" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font:700 15px 'Noto Sans SC',system-ui;color:#1a1a1a">三 · 座位与弹窗</span>
+      <span style="flex:1;height:1px;background:rgba(0,0,0,.12)"></span>
+      <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.45)">弹窗统一 rgba(10,12,22,.66) + 3px 模糊遮罩，卡片圆角 26</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:28px">
+
+      <div id="s-empty" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">empty</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">空座位</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">1.5px 虚线框 + 就地「邀请」按钮，顶部在线数同步</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="empty" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-invite" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:5px">invite</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">邀请好友 · 已复制</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">源码里这不是弹窗：头部按钮切到 invited 态，文案换成「房间码已复制」</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="invite" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-leave" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">leave</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">离开确认</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">净新增 · 源码里 ESC / 离开是直接关闭，没有二次确认</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="leave" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+      <div id="s-reconnect" style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F04E5C;color:#fff;border-radius:5px">reconnect</span>
+          <span style="font:700 13px 'Noto Sans SC',system-ui;color:#1a1a1a">断线重连 / 加载中</span>
+          <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">净新增 · 源码里没有这个流程，文案待产品确认</span>
+        </div>
+        <div style="width:1440px;height:900px;border:1px solid rgba(0,0,0,.1);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;background:#fff">
+          <dc-import name="Poker-Table" state="reconnect" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

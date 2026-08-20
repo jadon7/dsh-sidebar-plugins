@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;font-family:'Noto Sans SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#2a78d6}a:hover{color:#1a5aa8}</style></helmet>
+
+<div style="width:1560px;padding:56px 60px 72px;box-sizing:border-box;background:#f0eee9;color:#141C2E">
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding-bottom:22px;border-bottom:2px solid #141C2E">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font:700 11px/1 Archivo,system-ui;letter-spacing:.22em;color:rgba(20,28,46,.5)">TOKEN POKER · CARD FACE SYSTEM</div>
+      <div style="font:700 40px/1.05 'Noto Sans SC',system-ui;letter-spacing:-.01em">牌面设计</div>
+    </div>
+    <p style="margin:0;width:620px;font:400 13px/1.75 'Noto Sans SC',system-ui;color:rgba(20,28,46,.6);text-wrap:pretty">按第三张参考的做法：角标只留左上一处，花色做成大面积棱面几何图形并从卡边裁出去，牌面顶部带一层花色渐晕。牌组用四色，在深蓝桌面上四种花色一眼可分。</p>
+  </div>
+
+  <div style="display:flex;gap:44px;align-items:flex-start;padding:44px 0 8px">
+    <div style="position:relative;width:300px;height:420px;border-radius:26px;overflow:hidden;background:#fff;color:#F04E5C;box-shadow:0 2px 4px rgba(14,23,48,.14),0 24px 48px rgba(14,23,48,.16)">
+      <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+      <svg viewBox="0 0 100 100" style="position:absolute;right:-26px;bottom:-20px;width:272px;height:272px">
+        <clipPath id="cp-hero-h"><path d="M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z"></path></clipPath>
+        <g clip-path="url(#cp-hero-h)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g></g>
+      </svg>
+      <div style="position:absolute;top:26px;left:30px;font:800 106px/.82 Archivo,system-ui;letter-spacing:-.05em">8</div>
+      <svg viewBox="0 0 100 100" style="position:absolute;top:142px;left:33px;width:44px;height:44px"><path d="M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z" fill="currentColor"></path></svg>
+    </div>
+
+    <div style="position:relative;width:300px;height:420px;border-radius:26px;overflow:hidden;color:#1C2A4A;box-shadow:0 2px 4px rgba(14,23,48,.14),0 24px 48px rgba(14,23,48,.16)">
+      <div style="position:absolute;inset:0;background:currentColor"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+      <svg viewBox="0 0 100 100" style="position:absolute;right:-30px;bottom:-24px;width:284px;height:284px;color:#fff;opacity:.2">
+        <clipPath id="cp-hero-s"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z"></path></clipPath>
+        <g clip-path="url(#cp-hero-s)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g></g>
+      </svg>
+      <div style="position:absolute;top:26px;left:30px;color:#fff;font:800 106px/.82 Archivo,system-ui;letter-spacing:-.05em">K</div>
+      <svg viewBox="0 0 100 100" style="position:absolute;top:142px;left:33px;width:44px;height:44px;color:#fff"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z" fill="currentColor"></path></svg>
+      <div style="position:absolute;left:30px;bottom:26px;font:700 10px/1 Archivo,system-ui;letter-spacing:.2em;color:rgba(255,255,255,.5)">FACE CARD</div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;padding-top:4px">
+      <div style="font:700 15px/1 'Noto Sans SC',system-ui;padding-bottom:14px">规格</div>
+      <div style="display:grid;grid-template-columns:132px 1fr;gap:0 24px;font:400 13px/1.6 'Noto Sans SC',system-ui">
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">尺寸比例</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">5 : 7 — 公共牌 112×158，手牌 96×134，缩略 64×90</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">圆角</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">短边的 9%，随尺寸等比缩放</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">角标</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">Archivo 800，字高 = 卡宽 35%，字距 −5%；只留左上角一处</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">花色主图</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">占卡宽 95%，沿右下出血裁切，识别靠轮廓不靠细节</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">棱面</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">右半压暗 16%，右下再压 13%，左上高光 +17%，四种花色共用一套</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">A / J / Q / K</div><div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12)">满色卡面 + 白角标 + 20% 白花色，替代人物图，远看即知大牌</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);border-bottom:1px solid rgba(20,28,46,.12);color:rgba(20,28,46,.5)">四色牌</div>
+        <div style="padding:11px 0;border-top:1px solid rgba(20,28,46,.12);border-bottom:1px solid rgba(20,28,46,.12);display:flex;gap:16px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:13px;height:13px;border-radius:3px;background:#1C2A4A"></span>♠ #1C2A4A</span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:13px;height:13px;border-radius:3px;background:#F04E5C"></span>♥ #F04E5C</span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:13px;height:13px;border-radius:3px;background:#2F7BFF"></span>♦ #2F7BFF</span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:13px;height:13px;border-radius:3px;background:#17A97C"></span>♣ #17A97C</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;padding:52px 0 20px">
+    <div style="font:700 20px/1 'Noto Sans SC',system-ui">全套 52 张</div>
+    <div style="font:400 12.5px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.5)">同一套棱面图形按花色换色，A / J / Q / K 满色</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="flex:none;width:74px;display:flex;flex-direction:column;gap:7px;color:{{ row.color }}">
+          <svg viewBox="0 0 100 100" style="width:26px;height:26px"><path d="{{ row.d }}" fill="currentColor"></path></svg>
+          <div style="font:700 13px/1 'Noto Sans SC',system-ui;color:#141C2E">{{ row.name }}</div>
+          <div style="font:700 9px/1 Archivo,system-ui;letter-spacing:.16em;color:rgba(20,28,46,.4)">{{ row.en }}</div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <sc-for list="{{ row.cards }}" as="card" hint-placeholder-count="13">
+            <div style="position:relative;width:96px;height:134px;border-radius:11px;overflow:hidden;background:#fff;color:{{ card.color }};box-shadow:0 1px 2px rgba(14,23,48,.16),0 8px 18px rgba(14,23,48,.10)">
+              <sc-if value="{{ card.plain }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+                <svg viewBox="0 0 100 100" style="position:absolute;right:-9px;bottom:-7px;width:88px;height:88px">
+                  <clipPath id="{{ card.cid }}"><path d="{{ card.d }}"></path></clipPath>
+                  <g clip-path="{{ card.cidUrl }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g></g>
+                </svg>
+                <div style="position:absolute;top:8px;left:10px;font:800 34px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ card.rank }}</div>
+                <svg viewBox="0 0 100 100" style="position:absolute;top:44px;left:11px;width:17px;height:17px"><path d="{{ card.d }}" fill="currentColor"></path></svg>
+              </sc-if>
+              <sc-if value="{{ card.bleed }}">
+                <div style="position:absolute;inset:0;background:currentColor"></div>
+                <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+                <svg viewBox="0 0 100 100" style="position:absolute;right:-11px;bottom:-9px;width:94px;height:94px;color:#fff;opacity:.2">
+                  <clipPath id="{{ card.cid2 }}"><path d="{{ card.d }}"></path></clipPath>
+                  <g clip-path="{{ card.cid2Url }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g>
+                </svg>
+                <div style="position:absolute;top:8px;left:10px;color:#fff;font:800 34px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ card.rank }}</div>
+                <svg viewBox="0 0 100 100" style="position:absolute;top:44px;left:11px;width:17px;height:17px;color:#fff"><path d="{{ card.d }}" fill="currentColor"></path></svg>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start;padding:56px 0 0">
+    <div style="flex:none">
+      <div style="display:flex;align-items:baseline;gap:14px;padding-bottom:20px">
+        <div style="font:700 20px/1 'Noto Sans SC',system-ui">牌背</div>
+        <div style="font:400 12.5px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.5)">菱格 · 旋转 180° 同形 · 主背 + 两个房间皮肤</div>
+      </div>
+      <div style="display:flex;gap:28px;align-items:flex-start;padding-bottom:26px">
+        <div style="position:relative;width:200px;height:280px;border-radius:20px;overflow:hidden;background:#0D1526;box-shadow:0 2px 4px rgba(14,23,48,.2),0 20px 40px rgba(14,23,48,.22)">
+          <div style="position:absolute;inset:9px;border-radius:13px;overflow:hidden;background:#16233D;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.115) 0 1px,rgba(255,255,255,0) 1px 14px),repeating-linear-gradient(-45deg,rgba(255,255,255,.115) 0 1px,rgba(255,255,255,0) 1px 14px),repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 3.5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 3.5px)"></div>
+          <div style="position:absolute;inset:9px;border-radius:13px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(6,12,24,.5) 84%)"></div>
+          <div style="position:absolute;inset:9px;border-radius:13px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)"></div>
+          <div style="position:absolute;top:50%;left:50%;width:54px;height:54px;transform:translate(-50%,-50%) rotate(45deg);border-radius:8px;background:#0D1526"></div>
+          <div style="position:absolute;top:50%;left:50%;width:42px;height:42px;transform:translate(-50%,-50%) rotate(45deg);border-radius:7px;border:1.5px solid rgba(255,255,255,.5)"></div>
+          <div style="position:absolute;top:50%;left:50%;width:26px;height:26px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;background:#F04E5C"></div>
+        </div>
+        <div style="width:246px;display:flex;flex-direction:column;gap:10px;padding-top:6px">
+          <div style="font:700 13px/1 'Noto Sans SC',system-ui">菱格</div>
+          <p style="margin:0;font:400 12.5px/1.75 'Noto Sans SC',system-ui;color:rgba(20,28,46,.6);text-wrap:pretty">14px 的斜纹网叠一层 3.5px 的细纹，远看是一块有织感的深蓝，凑近才看得到两层网格。中心一颗珊瑚菱形，外面一圈深色空隙和一道白细线把它托出来。</p>
+          <p style="margin:0;font:400 12.5px/1.75 'Noto Sans SC',system-ui;color:rgba(20,28,46,.6);text-wrap:pretty">四边留 9px 深色边框：牌叠得不齐时边缘仍然干净，旋转 180° 完全同形，发牌朝向不泄露信息。缩到 60px 只剩一层均匀织纹，不跟四色牌面抢。</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;background:#0D1526;box-shadow:0 1px 2px rgba(14,23,48,.18),0 12px 26px rgba(14,23,48,.16)">
+            <div style="position:absolute;inset:6px;border-radius:9px;overflow:hidden;background:#16233D;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.115) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(-45deg,rgba(255,255,255,.115) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 2.75px),repeating-linear-gradient(-45deg,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 2.75px)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(6,12,24,.5) 84%)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%) rotate(45deg);border-radius:6px;background:#0D1526"></div>
+            <div style="position:absolute;top:50%;left:50%;width:29px;height:29px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;border:1.5px solid rgba(255,255,255,.5)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:18px;height:18px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;background:#F04E5C"></div>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">默认 · 深蓝</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;background:#8B1E29;box-shadow:0 1px 2px rgba(14,23,48,.18),0 12px 26px rgba(14,23,48,.16)">
+            <div style="position:absolute;inset:6px;border-radius:9px;overflow:hidden;background:#C4333F;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.75px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.75px)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(96,14,24,.5) 84%)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%) rotate(45deg);border-radius:6px;background:#8B1E29"></div>
+            <div style="position:absolute;top:50%;left:50%;width:29px;height:29px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;border:1.5px solid rgba(255,255,255,.5)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:18px;height:18px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;background:#F1EDE3"></div>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">房间皮肤 · 珊瑚</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;background:#0E2E6B;box-shadow:0 1px 2px rgba(14,23,48,.18),0 12px 26px rgba(14,23,48,.16)">
+            <div style="position:absolute;inset:6px;border-radius:9px;overflow:hidden;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 11px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.75px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.75px)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(8,26,66,.5) 84%)"></div>
+            <div style="position:absolute;inset:6px;border-radius:9px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%) rotate(45deg);border-radius:6px;background:#0E2E6B"></div>
+            <div style="position:absolute;top:50%;left:50%;width:29px;height:29px;transform:translate(-50%,-50%) rotate(45deg);border-radius:5px;border:1.5px solid rgba(255,255,255,.5)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:18px;height:18px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;background:#F1EDE3"></div>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">房间皮肤 · 蓝</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1">
+      <div style="display:flex;align-items:baseline;gap:14px;padding-bottom:20px">
+        <div style="font:700 20px/1 'Noto Sans SC',system-ui">状态</div>
+        <div style="font:400 12.5px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.5)">同一张 Q♦ 的在桌状态</div>
+      </div>
+      <div style="display:flex;gap:28px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;color:#2F7BFF;box-shadow:0 1px 2px rgba(14,23,48,.16),0 10px 22px rgba(14,23,48,.10)">
+            <div style="position:absolute;inset:0;background:currentColor"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-16px;bottom:-19px;width:122px;height:122px;color:#fff;opacity:.2"><clipPath id="cp-st1"><path d="M50 5 L91 50 L50 95 L9 50 Z"></path></clipPath><g clip-path="url(#cp-st1)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g></svg>
+            <div style="position:absolute;top:10px;left:13px;color:#fff;font:800 43px/.82 Archivo,system-ui;letter-spacing:-.05em">Q</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:57px;left:14px;width:19px;height:19px;color:#fff"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">默认</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;color:#2F7BFF;transform:translateY(-10px);box-shadow:0 0 0 3px #FFC24B,0 16px 30px rgba(14,23,48,.22)">
+            <div style="position:absolute;inset:0;background:currentColor"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-16px;bottom:-19px;width:122px;height:122px;color:#fff;opacity:.2"><clipPath id="cp-st2"><path d="M50 5 L91 50 L50 95 L9 50 Z"></path></clipPath><g clip-path="url(#cp-st2)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g></svg>
+            <div style="position:absolute;top:10px;left:13px;color:#fff;font:800 43px/.82 Archivo,system-ui;letter-spacing:-.05em">Q</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:57px;left:14px;width:19px;height:19px;color:#fff"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">成手牌 · 抬高 + 金环</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <div style="position:relative;width:120px;height:168px;border-radius:14px;overflow:hidden;color:#2F7BFF;filter:grayscale(1);opacity:.42;box-shadow:0 1px 2px rgba(14,23,48,.16)">
+            <div style="position:absolute;inset:0;background:currentColor"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-16px;bottom:-19px;width:122px;height:122px;color:#fff;opacity:.2"><clipPath id="cp-st3"><path d="M50 5 L91 50 L50 95 L9 50 Z"></path></clipPath><g clip-path="url(#cp-st3)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g></svg>
+            <div style="position:absolute;top:10px;left:13px;color:#fff;font:800 43px/.82 Archivo,system-ui;letter-spacing:-.05em">Q</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:57px;left:14px;width:19px;height:19px;color:#fff"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">未参与 · 去色 42%</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <div style="display:flex;gap:16px;align-items:flex-end;height:168px">
+            <div style="position:relative;width:78px;height:110px;border-radius:9px;overflow:hidden;color:#2F7BFF;box-shadow:0 1px 2px rgba(14,23,48,.16),0 8px 18px rgba(14,23,48,.10)">
+              <div style="position:absolute;inset:0;background:currentColor"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+              <svg viewBox="0 0 100 100" style="position:absolute;right:-10px;bottom:-12px;width:80px;height:80px;color:#fff;opacity:.2"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+              <div style="position:absolute;top:7px;left:9px;color:#fff;font:800 28px/.82 Archivo,system-ui;letter-spacing:-.05em">Q</div>
+              <svg viewBox="0 0 100 100" style="position:absolute;top:37px;left:10px;width:13px;height:13px;color:#fff"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+            </div>
+            <div style="position:relative;width:64px;height:90px;border-radius:7px;overflow:hidden;color:#2F7BFF;box-shadow:0 1px 2px rgba(14,23,48,.16),0 6px 14px rgba(14,23,48,.10)">
+              <div style="position:absolute;inset:0;background:currentColor"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+              <svg viewBox="0 0 100 100" style="position:absolute;right:-8px;bottom:-10px;width:66px;height:66px;color:#fff;opacity:.2"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+              <div style="position:absolute;top:6px;left:8px;color:#fff;font:800 23px/.82 Archivo,system-ui;letter-spacing:-.05em">Q</div>
+              <svg viewBox="0 0 100 100" style="position:absolute;top:30px;left:9px;width:11px;height:11px;color:#fff"><path d="M50 5 L91 50 L50 95 L9 50 Z" fill="currentColor"></path></svg>
+            </div>
+          </div>
+          <div style="font:400 12px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.55)">缩到 78 / 64 仍可读</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;padding:60px 0 20px">
+    <div style="font:700 20px/1 'Noto Sans SC',system-ui">放到深蓝桌面上</div>
+    <div style="font:400 12.5px/1 'Noto Sans SC',system-ui;color:rgba(20,28,46,.5)">公共牌 112×158 · 手牌外翻 7° 并加珊瑚色辉光</div>
+  </div>
+
+  <div style="position:relative;height:660px;border-radius:24px;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#1E2740,#111827 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)">
+    <div style="position:absolute;top:76px;left:50%;transform:translateX(-50%);width:1040px;height:340px;border-radius:170px;background:linear-gradient(180deg,#26314C,#1A2237);box-shadow:inset 0 0 0 10px rgba(255,255,255,.035),inset 0 24px 60px rgba(0,0,0,.35),0 30px 60px rgba(0,0,0,.3)"></div>
+    <div style="position:absolute;top:100px;left:50%;transform:translateX(-50%);width:992px;height:292px;border-radius:146px;border:1px dashed rgba(255,255,255,.08)"></div>
+
+    <div style="position:absolute;top:148px;left:50%;transform:translateX(-50%);display:flex;gap:16px">
+      <sc-for list="{{ board }}" as="card" hint-placeholder-count="5">
+        <div style="position:relative;width:112px;height:158px;border-radius:13px;overflow:hidden;background:#fff;color:{{ card.color }};box-shadow:0 2px 3px rgba(0,0,0,.4),0 14px 26px rgba(0,0,0,.35)">
+          <sc-if value="{{ card.plain }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-10px;bottom:-8px;width:104px;height:104px">
+              <clipPath id="{{ card.cid }}"><path d="{{ card.d }}"></path></clipPath>
+              <g clip-path="{{ card.cidUrl }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g></g>
+            </svg>
+            <div style="position:absolute;top:9px;left:12px;font:800 40px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ card.rank }}</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:53px;left:13px;width:18px;height:18px"><path d="{{ card.d }}" fill="currentColor"></path></svg>
+          </sc-if>
+          <sc-if value="{{ card.bleed }}">
+            <div style="position:absolute;inset:0;background:currentColor"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-13px;bottom:-11px;width:110px;height:110px;color:#fff;opacity:.2">
+              <clipPath id="{{ card.cid2 }}"><path d="{{ card.d }}"></path></clipPath>
+              <g clip-path="{{ card.cid2Url }}"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g>
+            </svg>
+            <div style="position:absolute;top:9px;left:12px;color:#fff;font:800 40px/.82 Archivo,system-ui;letter-spacing:-.05em">{{ card.rank }}</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:53px;left:13px;width:18px;height:18px;color:#fff"><path d="{{ card.d }}" fill="currentColor"></path></svg>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="position:absolute;top:40px;right:96px;display:flex;align-items:flex-end">
+      <div style="position:relative;width:60px;height:84px;border-radius:8px;overflow:hidden;background:#0D1526;transform:rotate(-6deg);box-shadow:0 2px 3px rgba(0,0,0,.4),0 10px 18px rgba(0,0,0,.35)">
+        <div style="position:absolute;inset:3px;border-radius:5px;overflow:hidden;background:#16233D;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.13) 0 1px,rgba(255,255,255,0) 1px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.13) 0 1px,rgba(255,255,255,0) 1px 7px)"></div>
+        <div style="position:absolute;inset:3px;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)"></div>
+        <div style="position:absolute;top:50%;left:50%;width:23px;height:23px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;background:#0D1526"></div>
+        <div style="position:absolute;top:50%;left:50%;width:17px;height:17px;transform:translate(-50%,-50%) rotate(45deg);border-radius:3px;background:#F04E5C"></div>
+      </div>
+      <div style="position:relative;width:60px;height:84px;border-radius:8px;overflow:hidden;background:#0D1526;margin-left:-28px;transform:rotate(5deg);box-shadow:0 2px 3px rgba(0,0,0,.4),0 10px 18px rgba(0,0,0,.35)">
+        <div style="position:absolute;inset:3px;border-radius:5px;overflow:hidden;background:#16233D;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.13) 0 1px,rgba(255,255,255,0) 1px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.13) 0 1px,rgba(255,255,255,0) 1px 7px)"></div>
+        <div style="position:absolute;inset:3px;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)"></div>
+        <div style="position:absolute;top:50%;left:50%;width:23px;height:23px;transform:translate(-50%,-50%) rotate(45deg);border-radius:4px;background:#0D1526"></div>
+        <div style="position:absolute;top:50%;left:50%;width:17px;height:17px;transform:translate(-50%,-50%) rotate(45deg);border-radius:3px;background:#F04E5C"></div>
+      </div>
+    </div>
+
+    <div style="position:absolute;top:352px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:5px">
+      <div style="font:800 30px/1 Archivo,system-ui;color:#F0616D;letter-spacing:-.02em">$32,650</div>
+      <div style="font:400 11.5px/1 'Noto Sans SC',system-ui;color:rgba(255,255,255,.42)">底池</div>
+    </div>
+
+    <div style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;align-items:flex-end">
+      <div style="position:relative;width:112px;height:158px;border-radius:13px;overflow:hidden;color:#F04E5C;transform:rotate(-7deg);box-shadow:0 2px 3px rgba(0,0,0,.4),0 16px 34px rgba(240,78,92,.34)">
+        <div style="position:absolute;inset:0;background:currentColor"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+        <svg viewBox="0 0 100 100" style="position:absolute;right:-13px;bottom:-11px;width:110px;height:110px;color:#fff;opacity:.2"><clipPath id="cp-hole1"><path d="M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z"></path></clipPath><g clip-path="url(#cp-hole1)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g></svg>
+        <div style="position:absolute;top:9px;left:12px;color:#fff;font:800 40px/.82 Archivo,system-ui;letter-spacing:-.05em">A</div>
+        <svg viewBox="0 0 100 100" style="position:absolute;top:53px;left:13px;width:18px;height:18px;color:#fff"><path d="M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z" fill="currentColor"></path></svg>
+      </div>
+      <div style="position:relative;width:112px;height:158px;border-radius:13px;overflow:hidden;color:#1C2A4A;margin-left:-16px;transform:rotate(7deg);box-shadow:0 2px 3px rgba(0,0,0,.4),0 16px 34px rgba(0,0,0,.42)">
+        <div style="position:absolute;inset:0;background:currentColor"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,255,255,.18),rgba(0,0,0,.34))"></div>
+        <svg viewBox="0 0 100 100" style="position:absolute;right:-13px;bottom:-11px;width:110px;height:110px;color:#fff;opacity:.2"><clipPath id="cp-hole2"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z"></path></clipPath><g clip-path="url(#cp-hole2)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><g opacity="{{ facetOpacity }}"><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".18"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".2"></path></g></g></svg>
+        <div style="position:absolute;top:9px;left:12px;color:#fff;font:800 40px/.82 Archivo,system-ui;letter-spacing:-.05em">A</div>
+        <svg viewBox="0 0 100 100" style="position:absolute;top:53px;left:13px;width:18px;height:18px;color:#fff"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z" fill="currentColor"></path></svg>
+      </div>
+    </div>
+
+    <div style="position:absolute;left:44px;bottom:44px;display:flex;flex-direction:column;gap:6px">
+      <div style="font:700 11px/1 Archivo,system-ui;letter-spacing:.2em;color:rgba(255,255,255,.35)">ON TABLE</div>
+      <div style="font:400 12.5px/1.7 'Noto Sans SC',system-ui;color:rgba(255,255,255,.5);width:280px">牌面顶部的花色渐晕在深桌面上形成一条彩色带，五张公共牌横排时，颜色序列本身就是一次牌型提示。</div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:2600},&quot;fourColor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;牌面&quot;},&quot;faceBleed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;牌面&quot;},&quot;faceted&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;牌面&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const four = this.props.fourColor ?? true;
+    const bleedHigh = this.props.faceBleed ?? true;
+    const faceted = this.props.faceted ?? true;
+    const D = {
+      s: 'M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z',
+      h: 'M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z',
+      d: 'M50 5 L91 50 L50 95 L9 50 Z',
+      c: 'M30 29 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M6 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M54 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M39 95 C48 82 49 70 49 50 L57 50 C57 70 58 82 67 95 Z'
+    };
+    const SUITS = [
+      { k: 's', name: '黑桃', en: 'SPADES', c4: '#1C2A4A', c2: '#1C2A4A' },
+      { k: 'h', name: '红桃', en: 'HEARTS', c4: '#F04E5C', c2: '#E23A46' },
+      { k: 'd', name: '方块', en: 'DIAMONDS', c4: '#2F7BFF', c2: '#E23A46' },
+      { k: 'c', name: '梅花', en: 'CLUBS', c4: '#17A97C', c2: '#1C2A4A' }
+    ];
+    const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    const HIGH = ['A', 'J', 'Q', 'K'];
+    const color = s => (four ? s.c4 : s.c2);
+    const card = (s, r, ns) => {
+      const b = bleedHigh && HIGH.indexOf(r) !== -1;
+      const key = ns + '-' + s.k + '-' + r;
+      return {
+        id: key, rank: r, d: D[s.k], color: color(s), bleed: b, plain: !b,
+        cid: 'cp-' + key, cidUrl: 'url(#cp-' + key + ')',
+        cid2: 'cpb-' + key, cid2Url: 'url(#cpb-' + key + ')'
+      };
+    };
+    const rows = SUITS.map(s => ({
+      key: s.k, name: s.name, en: s.en, d: D[s.k], color: color(s),
+      cards: RANKS.map(r => card(s, r, 'g'))
+    }));
+    const by = k => SUITS.filter(s => s.k === k)[0];
+    const board = [['s', 'K'], ['h', '9'], ['d', 'Q'], ['c', '4'], ['h', '10']].map(p => card(by(p[0]), p[1], 'b'));
+    return { rows, board, facetOpacity: faceted ? 1 : 0 };
+  }
+}
+
+</script>
+</body>
+</html>

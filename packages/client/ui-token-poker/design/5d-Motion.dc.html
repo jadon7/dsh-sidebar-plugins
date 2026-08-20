@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;-webkit-font-smoothing:antialiased}a{color:#2a78d6}a:hover{color:#1a5aa8}
+@keyframes m-hole{from{transform:translateY(190px) scale(.84) rotate(-10deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes m-hole2{from{transform:translateY(190px) scale(.84) rotate(10deg);opacity:0}to{transform:rotate(4deg);opacity:1}}
+@keyframes m-board{from{transform:translate(-250px,-74px) scale(.78);opacity:0}to{transform:none;opacity:1}}
+@keyframes m-flip{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
+@keyframes m-chip1{from{transform:none;opacity:1}to{transform:translate(-196px,54px) scale(.9);opacity:0}}
+@keyframes m-chip2{from{transform:none;opacity:1}to{transform:translate(-352px,-8px) scale(.9);opacity:0}}
+@keyframes m-potpop{0%{transform:translateX(-50%) scale(1)}40%{transform:translateX(-50%) scale(1.09)}100%{transform:translateX(-50%) scale(1)}}
+@keyframes m-turnring{from{box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 0 rgba(217,242,75,0)}to{box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1.5px rgba(217,242,75,.35)}}
+@keyframes m-win{0%{box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 2px #d9f24b,0 0 0 rgba(217,242,75,0)}50%{box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 2px #d9f24b,0 0 38px rgba(217,242,75,.55)}100%{box-shadow:0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 2px #d9f24b,0 0 14px rgba(217,242,75,.3)}}
+@keyframes m-badge{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+</style></helmet>
+
+<div style="width:1180px;box-sizing:border-box;padding:56px 60px 72px;background:#faf9f6;font-family:'Noto Sans SC',system-ui,sans-serif;color:#1a1a1a;display:flex;flex-direction:column;gap:26px">
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:36px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font:600 11px ui-monospace,Menlo,monospace;padding:3px 8px;background:#1a1a1a;color:#fff;border-radius:5px">5d</span>
+        <span style="font:400 12px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.45)">一手牌的完整动效 · 3.4s</span>
+      </div>
+      <div style="font:700 28px/1.2 'Noto Sans SC',system-ui;letter-spacing:-.01em">Token 德州 · 动效规格</div>
+      <div style="font:400 13px/1.7 'Noto Sans SC',system-ui;color:rgba(0,0,0,.55);max-width:640px;text-wrap:pretty">下面这段是真的在跑，不是录屏。按 0.25× 可以逐帧看清每条曲线。所有时长和 easing 就是规格本身，右侧表格里的值可以直接抄进代码。</div>
+    </div>
+    <div style="flex:none;display:flex;gap:9px">
+      <div onClick="{{ replay }}" style="height:44px;padding:0 22px;border-radius:14px;background:#1a1a1a;color:#fff;display:flex;align-items:center;gap:9px;font:700 13.5px 'Noto Sans SC',system-ui;cursor:pointer" style-hover="background:#333">▶ 重播</div>
+      <div onClick="{{ toggleSpeed }}" style="height:44px;padding:0 20px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.15);display:flex;align-items:center;font:700 13.5px 'Noto Sans SC',system-ui;cursor:pointer" style-hover="border-color:rgba(0,0,0,.4)">{{ speedLabel }}</div>
+    </div>
+  </div>
+
+  <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(0,0,0,.1);box-shadow:0 3px 14px rgba(0,0,0,.07)">
+    {{ stage }}
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:11px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font:700 13px 'Noto Sans SC',system-ui">时间轴</span>
+      <span style="font:400 12px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.45)">{{ clockLabel }}</span>
+      <span style="flex:1"></span>
+      <span style="font:400 12px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.45)">点任意一格跳到那一步</span>
+    </div>
+    <div style="position:relative;height:8px;border-radius:999px;background:rgba(0,0,0,.08)">
+      <div style="position:absolute;left:0;top:0;height:8px;width:{{ playPct }};border-radius:999px;background:#4d6bfe"></div>
+      <div style="position:absolute;left:{{ playPct }};top:-5px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fff;border:2.5px solid #4d6bfe;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;padding-top:6px">
+      <sc-for list="{{ cues }}" as="c" hint-placeholder-count="8">
+        <div onClick="{{ c.seek }}" style="display:flex;align-items:center;gap:14px;padding:9px 14px;border-radius:11px;background:{{ c.bg }};cursor:pointer" style-hover="background:rgba(77,107,254,.09)">
+          <span style="flex:none;width:66px;font:700 12px ui-monospace,Menlo,monospace;color:{{ c.tint }}">{{ c.at }}</span>
+          <span style="flex:none;width:150px;font:700 12.5px 'Noto Sans SC',system-ui;color:{{ c.ink }}">{{ c.name }}</span>
+          <span style="flex:none;width:70px;font:700 12px ui-monospace,Menlo,monospace;color:{{ c.tint }}">{{ c.dur }}</span>
+          <span style="flex:1;min-width:0;font:400 11.5px/1.5 ui-monospace,Menlo,monospace;color:rgba(0,0,0,.52)">{{ c.ease }}</span>
+          <span style="flex:none;width:44px;text-align:right;font:400 11px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.35)">{{ c.stagger }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:18px;flex-wrap:wrap;padding:20px 24px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.09)">
+    <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:8px">
+      <div style="font:700 13px 'Noto Sans SC',system-ui">三条原则</div>
+      <div style="font:400 12.5px/1.75 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6);text-wrap:pretty">① 钱的动作要看得见 —— 筹码必须真的飞过去，底池数字必须滚，不能直接跳。<br>② 牌永远从牌靴方向进场（左上），不要从屏幕边缘乱飞。<br>③ 状态类变化（回合、禁用）一律 160–180ms，快到几乎无感；只有钱和牌值得 300ms 以上。</div>
+    </div>
+    <div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:8px">
+      <div style="font:700 13px 'Noto Sans SC',system-ui">实现注意</div>
+      <div style="font:400 12.5px/1.75 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6);text-wrap:pretty">翻牌用 <code style="font:600 11.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">rotateY</code> + <code style="font:600 11.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">backface-visibility:hidden</code> 双面，别做两张牌淡入淡出——牌背的菱格织纹在淡出时会糊成一团。父级要给 <code style="font:600 11.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">perspective:900px</code>，否则翻转是平的。全部动效只用 transform / opacity / box-shadow，不要动 width / top。</div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:1080}}">
+class Component extends DCLogic {
+  state = { t: 0, playing: true, runId: 1, speed: 1, off: 0 };
+
+  _tick = () => {
+    const now = performance.now();
+    const dt = Math.min(80, now - (this._last || now));
+    this._last = now;
+    if (!this.state.playing) return;
+    const nt = this.state.t + dt * this.state.speed;
+    if (nt >= this.TOTAL) this.setState({ t: this.TOTAL, playing: false });
+    else this.setState({ t: nt });
+  };
+
+  _start() {
+    if (this._iv) return;
+    this._last = performance.now();
+    this._iv = setInterval(this._tick, 33);
+  }
+
+  componentDidMount() { this._start(); }
+  componentWillUnmount() { if (this._iv) clearInterval(this._iv); }
+
+  get TOTAL() { return 3400; }
+
+  CUES = [
+    { at: 0, dur: 260, name: '发手牌', ease: 'cubic-bezier(.2,.8,.2,1)', stagger: '错 90ms' },
+    { at: 420, dur: 420, name: '筹码飞入底池', ease: 'cubic-bezier(.35,.9,.25,1)', stagger: '错 80ms' },
+    { at: 780, dur: 500, name: '底池数字滚动', ease: 'ease-out（数值插值）', stagger: '—' },
+    { at: 1240, dur: 260, name: '发翻牌三张', ease: 'cubic-bezier(.2,.8,.2,1)', stagger: '错 70ms' },
+    { at: 1700, dur: 340, name: '翻面（背→面）', ease: 'cubic-bezier(.4,0,.2,1)', stagger: '错 70ms' },
+    { at: 2260, dur: 180, name: '回合切到你', ease: 'ease-out', stagger: '—' },
+    { at: 2560, dur: 600, name: '赢家高亮', ease: 'ease-in-out', stagger: '—' }
+  ];
+
+  replay = () => { this._last = performance.now(); this.setState(s => ({ t: 0, off: 0, playing: true, runId: s.runId + 1 })); };
+  toggleSpeed = () => { this._last = performance.now(); this.setState(s => ({ speed: s.speed === 1 ? 0.25 : 1, t: 0, off: 0, playing: true, runId: s.runId + 1 })); };
+  seekTo = (ms) => { this._last = performance.now(); this.setState(s => ({ t: ms, off: ms, playing: true, runId: s.runId + 1 })); };
+
+  renderVals() {
+    const e = React.createElement;
+    const sp = this.state.speed;
+    const off = this.state.off || 0;
+    const DU = ms => (ms / sp) + 'ms';
+    const DL = ms => ((ms - off) / sp) + 'ms';
+    const t = this.state.t;
+    const uid = 'mo' + this.state.runId;
+    this._start();
+
+    const D = {
+      s: 'M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z',
+      h: 'M50 92 C22 70 8 52 8 34 C8 19 19 8 32 8 C40 8 46 12 50 18 C54 12 60 8 68 8 C81 8 92 19 92 34 C92 52 78 70 50 92 Z',
+      d: 'M50 5 L91 50 L50 95 L9 50 Z',
+      c: 'M30 29 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M6 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M54 59 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0 M39 95 C48 82 49 70 49 50 L57 50 C57 70 58 82 67 95 Z'
+    };
+    const COL = { s: '#1C2A4A', h: '#F04E5C', d: '#2F7BFF', c: '#17A97C' };
+
+    const face = (rank, suit, w, h, extraStyle, key) => {
+      const cw = w, rankPx = Math.round(cw * 0.355), sm = Math.round(cw * 0.17);
+      const big = Math.round(cw * 0.92);
+      const cid = uid + '-' + key;
+      return e('div', {
+        key: key,
+        style: Object.assign({
+          position: 'absolute', width: w + 'px', height: h + 'px',
+          borderRadius: Math.round(cw * 0.145) + 'px', overflow: 'hidden',
+          background: '#fff', color: COL[suit],
+          boxShadow: '0 14px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9)'
+        }, extraStyle || {})
+      },
+        e('div', { key: 'v', style: { position: 'absolute', inset: 0, background: 'linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%)', opacity: .15 } }),
+        e('svg', { key: 'b', viewBox: '0 0 100 100', style: { position: 'absolute', right: -Math.round(cw * .092) + 'px', bottom: -Math.round(cw * .079) + 'px', width: big + 'px', height: big + 'px' } },
+          e('clipPath', { key: 'cp', id: cid }, e('path', { d: D[suit] })),
+          e('g', { key: 'g', clipPath: 'url(#' + cid + ')' },
+            e('rect', { key: 'r', x: -5, y: -5, width: 110, height: 110, fill: 'currentColor' }),
+            e('path', { key: 'p1', d: 'M50 -5 L105 -5 L105 105 L50 105 Z', fill: '#000', fillOpacity: '.16' }),
+            e('path', { key: 'p2', d: 'M50 105 L105 42 L105 105 Z', fill: '#000', fillOpacity: '.13' }),
+            e('path', { key: 'p3', d: 'M-5 -5 L44 -5 L14 58 L-5 32 Z', fill: '#fff', fillOpacity: '.17' })
+          )
+        ),
+        e('div', { key: 'r', style: { position: 'absolute', top: Math.round(cw * .092) + 'px', left: Math.round(cw * .118) + 'px', font: '800 ' + rankPx + 'px/.82 Archivo,system-ui', letterSpacing: '-.05em' } }, rank),
+        e('svg', { key: 's', viewBox: '0 0 100 100', style: { position: 'absolute', top: Math.round(cw * .46) + 'px', left: Math.round(cw * .13) + 'px', width: sm + 'px', height: sm + 'px' } },
+          e('path', { d: D[suit], fill: 'currentColor' }))
+      );
+    };
+
+    const backArt = (w, h, key, extraStyle) => {
+      const inset = Math.round(w * .066), ir = Math.round(w * .092);
+      return e('div', {
+        key: key,
+        style: Object.assign({
+          position: 'absolute', width: w + 'px', height: h + 'px',
+          borderRadius: Math.round(w * .145) + 'px', overflow: 'hidden', background: '#0E2E6B',
+          boxShadow: '0 14px 22px rgba(0,0,0,.45)'
+        }, extraStyle || {})
+      },
+        e('div', { key: 'l', style: { position: 'absolute', inset: inset + 'px', borderRadius: ir + 'px', background: '#1C4CA8', backgroundImage: 'repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 1px,rgba(255,255,255,0) 1px 9px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 2.5px)' } }),
+        e('div', { key: 'v', style: { position: 'absolute', inset: inset + 'px', borderRadius: ir + 'px', background: 'radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(8,26,66,.5) 84%)' } }),
+        e('div', { key: 'k', style: { position: 'absolute', inset: inset + 'px', borderRadius: ir + 'px', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.2)' } }),
+        e('div', { key: 'd1', style: { position: 'absolute', top: '50%', left: '50%', width: '25px', height: '25px', transform: 'translate(-50%,-50%) rotate(45deg)', borderRadius: '5px', background: '#0E2E6B' } }),
+        e('div', { key: 'd2', style: { position: 'absolute', top: '50%', left: '50%', width: '19px', height: '19px', transform: 'translate(-50%,-50%) rotate(45deg)', borderRadius: '4px', border: '1.5px solid rgba(255,255,255,.5)' } }),
+        e('div', { key: 'd3', style: { position: 'absolute', top: '50%', left: '50%', width: '12px', height: '12px', transform: 'translate(-50%,-50%) rotate(45deg)', borderRadius: '3px', background: '#F1EDE3' } })
+      );
+    };
+
+    const flipCard = (rank, suit, i) => {
+      const left = 304 + i * 89;
+      return e('div', {
+        key: 'fc' + i,
+        style: {
+          position: 'absolute', left: left + 'px', top: '176px', width: '76px', height: '106px',
+          perspective: '900px',
+          animation: 'm-board ' + DU(260) + ' cubic-bezier(.2,.8,.2,1) ' + DL(1240 + i * 70) + ' both'
+        }
+      },
+        e('div', {
+          key: 'in',
+          style: {
+            position: 'relative', width: '76px', height: '106px', transformStyle: 'preserve-3d',
+            animation: 'm-flip ' + DU(340) + ' cubic-bezier(.4,0,.2,1) ' + DL(1700 + i * 70) + ' both'
+          }
+        },
+          backArt(76, 106, 'bk', { backfaceVisibility: 'hidden', left: 0, top: 0 }),
+          face(rank, suit, 76, 106, { backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', left: 0, top: 0 }, 'fr')
+        )
+      );
+    };
+
+    const chip = (left, top, kf, delay, amt, key) => e('div', {
+      key: key,
+      style: {
+        position: 'absolute', left: left + 'px', top: top + 'px',
+        display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 14px',
+        borderRadius: '999px', background: '#d9f24b', boxShadow: '0 10px 18px rgba(0,0,0,.4)',
+        font: '800 13px Nunito,system-ui', color: '#1b1e30',
+        animation: kf + ' ' + DU(420) + ' cubic-bezier(.35,.9,.25,1) ' + DL(delay) + ' both'
+      }
+    },
+      e('span', { key: 'd', style: { width: '13px', height: '13px', borderRadius: '50%', background: '#1b1e30', display: 'block' } }),
+      amt
+    );
+
+    const potFrom = 1.14, potTo = 1.7;
+    const pr = Math.max(0, Math.min(1, (t - 780) / 500));
+    const potVal = (potFrom + (potTo - potFrom) * (1 - Math.pow(1 - pr, 3))).toFixed(2);
+
+    const plate = (left, top, ini, name, tok, g1, g2, ink, anim, key) => e('div', {
+      key: key,
+      style: {
+        position: 'absolute', left: left + 'px', top: top + 'px',
+        display: 'flex', alignItems: 'center', gap: '11px', padding: '9px 16px 9px 10px',
+        borderRadius: '18px', background: 'linear-gradient(180deg,#2c3252,#252a44)',
+        boxShadow: '0 14px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08)',
+        animation: anim
+      }
+    },
+      e('span', { key: 'a', style: { width: '38px', height: '38px', borderRadius: '13px', background: 'linear-gradient(170deg,' + g1 + ',' + g2 + ')', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '800 13px Nunito,system-ui', color: ink } }, ini),
+      e('span', { key: 'n', style: { display: 'flex', flexDirection: 'column', gap: '2px' } },
+        e('span', { key: '1', style: { font: '800 13.5px Nunito,system-ui', color: '#e9ecf7' } }, name),
+        e('span', { key: '2', style: { font: '700 11.5px Nunito,system-ui', color: 'rgba(233,236,247,.5)' } }, tok)
+      )
+    );
+
+    const stage = e('div', {
+      key: uid,
+      style: {
+        position: 'relative', width: '1058px', height: '460px', overflow: 'hidden',
+        background: 'radial-gradient(110% 90% at 50% 30%,#262b47 0%,#1b1e30 62%,#171a2b 100%)',
+        fontFamily: "'Nunito','Noto Sans SC',system-ui,sans-serif"
+      }
+    },
+      e('div', { key: 'rail', style: { position: 'absolute', left: '150px', top: '54px', width: '760px', height: '300px', borderRadius: '999px', background: 'linear-gradient(160deg,#3a4168 0%,#2e3452 55%,#282d46 100%)', boxShadow: '24px 28px 56px rgba(0,0,0,.5),-16px -18px 40px rgba(255,255,255,.03),inset 0 2px 0 rgba(255,255,255,.08)' } }),
+      e('div', { key: 'felt', style: { position: 'absolute', left: '184px', top: '82px', width: '692px', height: '244px', borderRadius: '999px', background: '#212642', boxShadow: 'inset 0 12px 26px rgba(0,0,0,.55),inset 0 -2px 0 rgba(255,255,255,.05)' } }),
+
+      e('div', {
+        key: 'pot',
+        style: {
+          position: 'absolute', left: '50%', top: '118px', transform: 'translateX(-50%)',
+          display: 'flex', alignItems: 'baseline', gap: '11px', whiteSpace: 'nowrap',
+          animation: 'm-potpop ' + DU(500) + ' ease-out ' + DL(780) + ' both'
+        }
+      },
+        e('span', { key: 'l', style: { font: '700 13px Nunito,system-ui', color: 'rgba(233,236,247,.45)' } }, '底池'),
+        e('span', { key: 'v', style: { font: '800 38px/1 Nunito,system-ui', color: '#d9f24b', letterSpacing: '-.01em' } }, potVal + 'M'),
+        e('span', { key: 'u', style: { font: '700 14px Nunito,system-ui', color: 'rgba(217,242,75,.55)' } }, 'tokens')
+      ),
+
+      flipCard('2', 's', 0),
+      flipCard('6', 's', 1),
+      flipCard('2', 'c', 2),
+      backArt(76, 106, 'b4', { left: '571px', top: '176px' }),
+      backArt(76, 106, 'b5', { left: '660px', top: '176px' }),
+
+      chip(700, 74, 'm-chip1', 420, '561K', 'c1'),
+      chip(856, 136, 'm-chip2', 500, '561K', 'c2'),
+
+      plate(40, 96, 'NO', 'Noah', '24.2K tokens', '#ffcf6b', '#e2a133', '#432c05',
+        'm-turnring ' + DU(180) + ' ease-out ' + DL(2260) + ' both', 'p1'),
+
+      e('div', {
+        key: 'you',
+        style: {
+          position: 'absolute', left: '50%', bottom: '26px', transform: 'translateX(-50%)',
+          display: 'flex', alignItems: 'center', gap: '18px'
+        }
+      },
+        e('div', { key: 'h', style: { position: 'relative', width: '141px', height: '92px' } },
+          face('A', 'd', 66, 92, { left: 0, top: 0, animation: 'm-hole ' + DU(260) + ' cubic-bezier(.2,.8,.2,1) ' + DL(0) + ' both' }, 'h1'),
+          face('2', 'd', 66, 92, { left: '75px', top: 0, animation: 'm-hole2 ' + DU(260) + ' cubic-bezier(.2,.8,.2,1) ' + DL(90) + ' both' }, 'h2')
+        ),
+        e('div', {
+          key: 'p',
+          style: {
+            display: 'flex', flexDirection: 'column', gap: '7px', alignItems: 'flex-start'
+          }
+        },
+          e('div', {
+            key: 'badge',
+            style: {
+              padding: '4px 12px', borderRadius: '9px', background: '#d9f24b',
+              boxShadow: '0 8px 16px rgba(217,242,75,.32)', font: '800 12px "Noto Sans SC",system-ui', color: '#1b1e30',
+              animation: 'm-badge ' + DU(220) + ' cubic-bezier(.2,.8,.2,1) ' + DL(2560) + ' both'
+            }
+          }, '赢家 · 三条 2'),
+          e('div', {
+            key: 'plate',
+            style: {
+              display: 'flex', alignItems: 'center', gap: '13px', padding: '11px 20px 11px 12px',
+              borderRadius: '20px', background: 'linear-gradient(180deg,#333a5e,#2a3050)',
+              animation: 'm-win ' + DU(600) + ' ease-in-out ' + DL(2560) + ' both'
+            }
+          },
+            e('span', { key: 'a', style: { width: '46px', height: '46px', borderRadius: '15px', background: 'linear-gradient(170deg,#6a83ff,#3f5cf0)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '800 13px Nunito,system-ui', color: '#fff' } }, 'YOU'),
+            e('span', { key: 'n', style: { display: 'flex', flexDirection: 'column', gap: '3px' } },
+              e('span', { key: '1', style: { font: '800 16px "Noto Sans SC",system-ui', color: '#e9ecf7' } }, '你'),
+              e('span', { key: '2', style: { font: '700 12.5px Nunito,system-ui', color: 'rgba(233,236,247,.55)' } }, '2.13M tokens')
+            )
+          )
+        )
+      )
+    );
+
+    const cues = this.CUES.map(c => {
+      const active = t >= c.at && t < c.at + c.dur;
+      const past = t >= c.at + c.dur;
+      return {
+        at: c.at + 'ms', dur: c.dur + 'ms', name: c.name, ease: c.ease, stagger: c.stagger,
+        bg: active ? 'rgba(77,107,254,.13)' : (past ? 'rgba(0,0,0,.03)' : 'transparent'),
+        ink: active ? '#2a44c8' : '#1a1a1a',
+        tint: active ? '#2a44c8' : 'rgba(0,0,0,.5)',
+        seek: () => this.seekTo(c.at)
+      };
+    });
+
+    return {
+      stage: stage,
+      cues: cues,
+      playPct: (Math.min(1, t / this.TOTAL) * 100).toFixed(2) + '%',
+      clockLabel: Math.round(t) + ' / ' + this.TOTAL + ' ms',
+      speedLabel: sp === 1 ? '1×' : '0.25×',
+      replay: this.replay,
+      toggleSpeed: this.toggleSpeed
+    };
+  }
+}
+</script>
+</body>
+</html>

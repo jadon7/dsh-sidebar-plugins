@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;-webkit-font-smoothing:antialiased}a{color:#2a78d6}a:hover{color:#1a5aa8}</style></helmet>
+
+<div style="width:1520px;box-sizing:border-box;padding:64px 72px 88px;background:#faf9f6;font-family:'Noto Sans SC',system-ui,sans-serif;color:#1a1a1a;display:flex;flex-direction:column;gap:52px">
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding-bottom:26px;border-bottom:2px solid #1a1a1a">
+    <div style="display:flex;flex-direction:column;gap:11px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font:600 11px ui-monospace,Menlo,monospace;padding:3px 8px;background:#1a1a1a;color:#fff;border-radius:5px">5c</span>
+        <span style="font:400 12px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.45)">packages/client/ui-token-poker</span>
+      </div>
+      <div style="font:700 34px/1.15 'Noto Sans SC',system-ui;letter-spacing:-.01em">Token 德州 · 视觉规范</div>
+      <div style="font:400 14px/1.6 'Noto Sans SC',system-ui;color:rgba(0,0,0,.55);max-width:720px;text-wrap:pretty">以 <b>5a-C 软陶六人桌 · 棱面牌面</b> 为基准帧。所有数值直接来自 <code style="font:600 12.5px ui-monospace,Menlo,monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px">Poker-Table.dc.html</code>，不是重新量的，改代码即改规范。</div>
+    </div>
+    <div style="flex:none;display:flex;flex-direction:column;gap:6px;text-align:right;font:400 12px/1.7 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">
+      <div>画布 1440 × 900 · 侧栏 232 + 桌面 1208</div>
+      <div>字体 Archivo / Nunito / Noto Sans SC</div>
+      <div>最小字号 10.5px · 最小点击区 38px</div>
+    </div>
+  </div>
+
+  <sc-for list="{{ colorGroups }}" as="g" hint-placeholder-count="5">
+    <div style="display:flex;flex-direction:column;gap:15px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="font:700 17px 'Noto Sans SC',system-ui">{{ g.title }}</span>
+        <span style="font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">{{ g.note }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="6">
+          <div style="width:212px;box-sizing:border-box;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.09);background:#fff">
+            <div style="height:66px;background:{{ it.bg }};display:flex;align-items:flex-end;padding:9px 11px;font:700 11px ui-monospace,Menlo,monospace;color:{{ it.ink }}">{{ it.hex }}</div>
+            <div style="padding:10px 11px 12px;display:flex;flex-direction:column;gap:4px">
+              <div style="font:700 12.5px 'Noto Sans SC',system-ui">{{ it.name }}</div>
+              <div style="font:400 11.5px/1.5 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">{{ it.use }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="display:flex;flex-direction:column;gap:15px">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <span style="font:700 17px 'Noto Sans SC',system-ui">字体与字号</span>
+      <span style="font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">三套字体各管一件事：Archivo 只写牌点，Nunito 管数字和英文 UI，Noto Sans SC 管中文</span>
+    </div>
+    <div style="border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden;background:#fff">
+      <div style="display:grid;grid-template-columns:250px 200px 260px 1fr;gap:0;padding:11px 18px;background:#f2f0ec;font:700 11.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.55)">
+        <div>样例</div><div>字体 / 字重</div><div>字号 / 行高 / 字距</div><div>用在哪</div>
+      </div>
+      <sc-for list="{{ typeRows }}" as="t" hint-placeholder-count="8">
+        <div style="display:grid;grid-template-columns:250px 200px 260px 1fr;gap:0;padding:14px 18px;border-top:1px solid rgba(0,0,0,.07);align-items:center">
+          <div style="{{ t.sampleStyle }}">{{ t.sample }}</div>
+          <div style="font:400 12.5px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.7)">{{ t.font }}</div>
+          <div style="font:400 12.5px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.7)">{{ t.spec }}</div>
+          <div style="font:400 12.5px/1.6 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6)">{{ t.use }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:15px">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <span style="font:700 17px 'Noto Sans SC',system-ui">组件尺寸</span>
+      <span style="font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">宽 × 高 / 圆角，单位 px</span>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <sc-for list="{{ sizeGroups }}" as="sg" hint-placeholder-count="4">
+        <div style="flex:1;min-width:340px;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden;background:#fff">
+          <div style="padding:11px 16px;background:#f2f0ec;font:700 12.5px 'Noto Sans SC',system-ui">{{ sg.title }}</div>
+          <sc-for list="{{ sg.rows }}" as="r" hint-placeholder-count="5">
+            <div style="display:flex;align-items:baseline;gap:12px;padding:10px 16px;border-top:1px solid rgba(0,0,0,.07)">
+              <span style="flex:1;font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.7)">{{ r.name }}</span>
+              <span style="flex:none;font:700 12.5px ui-monospace,Menlo,monospace">{{ r.size }}</span>
+              <span style="flex:none;width:64px;text-align:right;font:400 12px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.45)">{{ r.radius }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:15px">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <span style="font:700 17px 'Noto Sans SC',system-ui">阴影</span>
+      <span style="font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">软陶质感靠「大而软的外阴影 + 1px 顶部内高光」，别只加 opacity</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <sc-for list="{{ shadowRows }}" as="s" hint-placeholder-count="6">
+        <div style="width:356px;box-sizing:border-box;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column">
+          <div style="height:118px;background:{{ s.stage }};display:flex;align-items:center;justify-content:center">
+            <div style="width:132px;height:56px;border-radius:{{ s.demoRadius }};background:{{ s.demoBg }};box-shadow:{{ s.css }}"></div>
+          </div>
+          <div style="padding:12px 15px 14px;display:flex;flex-direction:column;gap:6px">
+            <div style="font:700 12.5px 'Noto Sans SC',system-ui">{{ s.name }}</div>
+            <div style="font:400 11px/1.55 ui-monospace,Menlo,monospace;color:rgba(0,0,0,.55);word-break:break-all">{{ s.css }}</div>
+            <div style="font:400 11.5px/1.5 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">{{ s.use }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:22px;flex-wrap:wrap">
+    <div style="flex:1;min-width:520px;display:flex;flex-direction:column;gap:15px">
+      <div style="font:700 17px 'Noto Sans SC',system-ui">间距与栅格</div>
+      <div style="border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden;background:#fff">
+        <sc-for list="{{ spacingRows }}" as="sp" hint-placeholder-count="8">
+          <div style="display:flex;align-items:baseline;gap:14px;padding:11px 16px;border-bottom:1px solid rgba(0,0,0,.07)">
+            <span style="flex:none;width:96px;font:700 12.5px ui-monospace,Menlo,monospace">{{ sp.v }}</span>
+            <span style="flex:1;font:400 12.5px/1.55 'Noto Sans SC',system-ui;color:rgba(0,0,0,.62)">{{ sp.use }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1;min-width:520px;display:flex;flex-direction:column;gap:15px">
+      <div style="font:700 17px 'Noto Sans SC',system-ui">动效</div>
+      <div style="border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden;background:#fff">
+        <sc-for list="{{ motionRows }}" as="m" hint-placeholder-count="7">
+          <div style="display:flex;align-items:baseline;gap:14px;padding:11px 16px;border-bottom:1px solid rgba(0,0,0,.07)">
+            <span style="flex:none;width:150px;font:700 12.5px 'Noto Sans SC',system-ui">{{ m.name }}</span>
+            <span style="flex:none;width:74px;font:700 12.5px ui-monospace,Menlo,monospace;color:#4d6bfe">{{ m.dur }}</span>
+            <span style="flex:1;font:400 11.5px/1.5 ui-monospace,Menlo,monospace;color:rgba(0,0,0,.55)">{{ m.ease }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:15px">
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <span style="font:700 17px 'Noto Sans SC',system-ui">牌面构造</span>
+      <span style="font:400 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)">五层，从下往上叠；换尺寸时角标字高恒为卡宽 35%</span>
+    </div>
+    <div style="display:flex;gap:22px;align-items:flex-start;padding:26px 28px;border:1px solid rgba(0,0,0,.09);border-radius:14px;background:#22273f">
+      <div style="flex:none;display:flex;gap:16px;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+          <div style="position:relative;width:152px;height:212px;border-radius:22px;overflow:hidden;background:#fff;color:#1C2A4A;box-shadow:0 20px 34px rgba(0,0,0,.5)">
+            <div style="position:absolute;inset:0;background:linear-gradient(178deg,currentColor,rgba(255,255,255,0) 60%);opacity:.15"></div>
+            <svg viewBox="0 0 100 100" style="position:absolute;right:-14px;bottom:-12px;width:140px;height:140px">
+              <clipPath id="spec-cp-s"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z"></path></clipPath>
+              <g clip-path="url(#spec-cp-s)"><rect x="-5" y="-5" width="110" height="110" fill="currentColor"></rect><path d="M50 -5 L105 -5 L105 105 L50 105 Z" fill="#000" fill-opacity=".16"></path><path d="M50 105 L105 42 L105 105 Z" fill="#000" fill-opacity=".13"></path><path d="M-5 -5 L44 -5 L14 58 L-5 32 Z" fill="#fff" fill-opacity=".17"></path></g>
+            </svg>
+            <div style="position:absolute;top:14px;left:18px;font:800 54px/.82 Archivo,system-ui;letter-spacing:-.05em">2</div>
+            <svg viewBox="0 0 100 100" style="position:absolute;top:70px;left:20px;width:26px;height:26px"><path d="M50 8 C50 8 14 40 14 60 C14 73 23 81 34 81 C41 81 46 78 49 74 C48 84 44 91 36 95 L64 95 C56 91 52 84 51 74 C54 78 59 81 66 81 C77 81 86 73 86 60 C86 40 50 8 50 8 Z" fill="currentColor"></path></svg>
+          </div>
+          <div style="font:400 11px 'Noto Sans SC',system-ui;color:rgba(255,255,255,.42)">正面 · 2倍示意</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;align-items:center">
+          <div style="position:relative;width:152px;height:212px;border-radius:22px;overflow:hidden;background:#0E2E6B;box-shadow:0 20px 34px rgba(0,0,0,.5)">
+            <div style="position:absolute;inset:10px;border-radius:14px;overflow:hidden;background:#1C4CA8;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 2px,rgba(255,255,255,0) 2px 18px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 2px,rgba(255,255,255,0) 2px 18px),repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 5px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 5px)"></div>
+            <div style="position:absolute;inset:10px;border-radius:14px;background:radial-gradient(72% 52% at 50% 50%,rgba(255,255,255,.07),rgba(8,26,66,.5) 84%)"></div>
+            <div style="position:absolute;inset:10px;border-radius:14px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.2)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:50px;height:50px;transform:translate(-50%,-50%) rotate(45deg);border-radius:10px;background:#0E2E6B"></div>
+            <div style="position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%) rotate(45deg);border-radius:8px;border:3px solid rgba(255,255,255,.5)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:24px;height:24px;transform:translate(-50%,-50%) rotate(45deg);border-radius:6px;background:#F1EDE3"></div>
+          </div>
+          <div style="font:400 11px 'Noto Sans SC',system-ui;color:rgba(255,255,255,.42)">牌背 · 2倍示意</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:11px">
+        <sc-for list="{{ cardLayers }}" as="cl" hint-placeholder-count="6">
+          <div style="display:flex;gap:13px;align-items:baseline">
+            <span style="flex:none;width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font:700 11px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.7)">{{ cl.n }}</span>
+            <span style="flex:none;width:112px;font:700 12.5px 'Noto Sans SC',system-ui;color:#fff">{{ cl.name }}</span>
+            <span style="flex:1;font:400 12px/1.6 'Noto Sans SC',system-ui;color:rgba(255,255,255,.55)">{{ cl.detail }}</span>
+          </div>
+        </sc-for>
+        <div style="display:flex;gap:18px;padding-top:8px;margin-top:4px;border-top:1px solid rgba(255,255,255,.1)">
+          <sc-for list="{{ suitSwatches }}" as="sw" hint-placeholder-count="4">
+            <span style="display:flex;align-items:center;gap:8px;font:400 11.5px 'Noto Sans SC',system-ui;color:rgba(255,255,255,.6)"><span style="width:13px;height:13px;border-radius:4px;background:{{ sw.hex }};box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);display:block"></span>{{ sw.label }}<span style="font:600 10.5px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.4)">{{ sw.hex }}</span></span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:13px;padding:24px 28px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.09)">
+    <div style="font:700 17px 'Noto Sans SC',system-ui">交付时需要工程确认的三件事</div>
+    <sc-for list="{{ openItems }}" as="oi" hint-placeholder-count="3">
+      <div style="display:flex;gap:13px;align-items:baseline">
+        <span style="flex:none;width:20px;height:20px;border-radius:6px;background:#F04E5C;display:flex;align-items:center;justify-content:center;font:700 11px ui-monospace,Menlo,monospace;color:#fff">{{ oi.n }}</span>
+        <span style="flex:1;font:400 13px/1.7 'Noto Sans SC',system-ui;color:rgba(0,0,0,.7);text-wrap:pretty">{{ oi.text }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1520,&quot;height&quot;:2400}}">
+class Component extends DCLogic {
+  renderVals() {
+    const dark = '#22273f';
+    const W = '#fff', D = 'rgba(0,0,0,.75)';
+    const c = (hex, name, use, ink) => ({ hex: hex, bg: hex, name: name, use: use, ink: ink || W });
+    const g = (bg, hex, name, use, ink) => ({ hex: hex, bg: bg, name: name, use: use, ink: ink || W });
+
+    return {
+      colorGroups: [
+        {
+          title: '桌面与容器',
+          note: '整桌只有两层底色 + 一圈软陶轨，别再加第三层',
+          items: [
+            c('#171a2b', '页底 page', '窗口底色，桌面径向渐变的收尾'),
+            g('radial-gradient(120% 90% at 50% 34%,#262b47,#1b1e30 62%,#171a2b)', '#262B47 → #171A2B', '桌面 felt-glow', '桌区径向渐变，光心在上方 34%'),
+            g('linear-gradient(160deg,#3a4168,#2e3452 55%,#282d46)', '#3A4168 → #282D46', '软陶轨 rail', '椭圆外圈 760×344，斜 160°'),
+            c('#212642', '牌桌内圈 felt', '椭圆内凹面 692×284'),
+            g('linear-gradient(180deg,#2c3252,#252a44)', '#2C3252 → #252A44', '名牌 plate', '玩家名牌、弹窗卡片底'),
+            g('linear-gradient(180deg,#333a5e,#2a3050)', '#333A5E → #2A3050', '名牌 · 行动中', '轮到该玩家时抬亮一档 + 柠檬描边'),
+            c('#1e2237', '内凹件 recess', '快捷下注、牌局号、弃牌按钮'),
+            c('#1b1f33', '滑杆槽 track', '滑杆底槽，比 recess 再深一档')
+          ]
+        },
+        {
+          title: '强调色',
+          note: '柠檬黄＝钱和你的回合，DSH 蓝＝品牌和选中，珊瑚＝不可逆操作',
+          items: [
+            c('#d9f24b', '柠檬黄 accent', '底池数字、主按钮、当前街、筹码', 'rgba(0,0,0,.8)'),
+            c('#bcd934', '柠檬黄 · 压深', '主按钮渐变下沿', 'rgba(0,0,0,.8)'),
+            c('#4d6bfe', 'DSH 蓝 primary', '侧栏选中、复制按钮、邀请'),
+            c('#8ce06a', '在线绿 online', '在线圆点 8px，带 10px 外发光', 'rgba(0,0,0,.8)'),
+            c('#F04E5C', '珊瑚 danger', '全下、弃牌离开、余额不足提示'),
+            c('#d33b48', '珊瑚 · 压深', 'danger 按钮渐变下沿')
+          ]
+        },
+        {
+          title: '文字层级',
+          note: '深底上只用一个墨色 #E9ECF7 加透明度，不另调灰',
+          items: [
+            g('#e9ecf7', '#E9ECF7 · 100%', '正文 primary', '名字、按钮、金额', 'rgba(0,0,0,.8)'),
+            g('rgba(233,236,247,.55)', 'opacity .55', '次级 secondary', '你的 token 余额、副标题', 'rgba(255,255,255,.9)'),
+            g('rgba(233,236,247,.45)', 'opacity .45', '说明 tertiary', '「底池」「推理无限注」等标签'),
+            g('rgba(233,236,247,.35)', 'opacity .35', '弱提示 quiet', '滑杆范围文案，最低可读档')
+          ]
+        },
+        {
+          title: '四色牌 · 花色',
+          note: '深桌面上一眼分花色；工程侧留 fourColorDeck 开关退回双色',
+          items: [
+            c('#1C2A4A', '♠ 黑桃 · 靛蓝', '四色 / 双色都用这支'),
+            c('#F04E5C', '♥ 红桃 · 珊瑚', '与 danger 同色，牌面语境不冲突'),
+            c('#2F7BFF', '♦ 方块 · 亮蓝', '四色专用；关掉开关后回 #E23A46'),
+            c('#17A97C', '♣ 梅花 · 绿', '四色专用；关掉开关后回 #1C2A4A')
+          ]
+        },
+        {
+          title: '牌背',
+          note: '菱格织纹是三层 repeating-linear-gradient 叠出来的，不用图片',
+          items: [
+            c('#0E2E6B', '牌背外框', '出血边 5px（76 宽卡）'),
+            c('#1C4CA8', '牌背织面', '45° / -45° 各两道，粗 9px 细 2.5px'),
+            c('#F1EDE3', '中心菱标', '三层旋转方块最内层', 'rgba(0,0,0,.8)')
+          ]
+        }
+      ],
+
+      typeRows: [
+        { sample: '2', sampleStyle: "font:800 44px/.82 Archivo,system-ui;letter-spacing:-.05em;color:#1C2A4A", font: 'Archivo 800', spec: '卡宽 × 35% / .82 / -.05em', use: '牌点角标，且只用在这里。76 宽卡 → 27px，66 宽 → 23px，30 宽 → 13px' },
+        { sample: '1.7M', sampleStyle: "font:800 38px/1 Nunito,system-ui;letter-spacing:-.01em;color:#1a1a1a", font: 'Nunito 800', spec: '38 / 1 / -.01em', use: '底池金额，全桌最大的字' },
+        { sample: '1.28M', sampleStyle: "font:800 26px/1 Nunito,system-ui;color:#1a1a1a", font: 'Nunito 800', spec: '26 / 1', use: '滑杆当前下注额' },
+        { sample: '下注 1.28M', sampleStyle: "font:800 16px 'Noto Sans SC',system-ui;color:#1a1a1a", font: 'Noto Sans SC 700', spec: '16 / 1', use: '主按钮；次按钮 15px' },
+        { sample: 'Token 德州', sampleStyle: "font:800 19px 'Noto Sans SC',system-ui;color:#1a1a1a", font: 'Noto Sans SC 700', spec: '19 / 1.2 / .01em', use: '页面标题' },
+        { sample: 'Mina', sampleStyle: "font:800 13.5px 'Noto Sans SC',system-ui;color:#1a1a1a", font: 'Nunito 800', spec: '13.5 / 1', use: '玩家名；你自己的名牌 16px' },
+        { sample: '106K tokens', sampleStyle: "font:600 11.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.5)", font: 'Nunito 700', spec: '11.5 / 1', use: '名牌下的余额' },
+        { sample: '好友桌 · 4 / 6 在线', sampleStyle: "font:700 13px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.7)", font: 'Noto Sans SC 700', spec: '13 / 1', use: '状态行左右两侧' },
+        { sample: '快捷下注 25%', sampleStyle: "font:700 12.5px 'Noto Sans SC',system-ui;color:rgba(0,0,0,.6)", font: 'Noto Sans SC 700', spec: '12.5 / 1', use: '操作区标签、头部胶囊、侧栏条目' },
+        { sample: 'ESC', sampleStyle: "font:700 10.5px ui-monospace,Menlo,monospace;color:rgba(0,0,0,.5)", font: 'Nunito 700', spec: '10.5 / 1 / .06em', use: '快捷键徽标、分组标题。全桌最小字号，不要再往下' }
+      ],
+
+      sizeGroups: [
+        {
+          title: '牌',
+          rows: [
+            { name: '公共牌 board', size: '76 × 106', radius: 'r 11' },
+            { name: '手牌 hand（旋转 ±4°）', size: '66 × 92', radius: 'r 10' },
+            { name: '亮牌小牌 reveal', size: '30 × 42', radius: 'r 6' },
+            { name: '名牌迷你牌背 mini', size: '16 × 22', radius: 'r 4' },
+            { name: '比例恒定 5 : 7', size: '—', radius: '—' }
+          ]
+        },
+        {
+          title: '座位与筹码',
+          rows: [
+            { name: '玩家名牌（内距 9/16/9/10）', size: '自适应 × 56', radius: 'r 18' },
+            { name: '你的名牌（内距 11/20/11/12）', size: '自适应 × 68', radius: 'r 20' },
+            { name: '头像 avatar', size: '38 × 38', radius: 'r 13' },
+            { name: '你的头像', size: '46 × 46', radius: 'r 15' },
+            { name: '庄家钮 / 倒计时环', size: '22 / 26', radius: '圆' },
+            { name: '在线点 · 名牌 / 你', size: '8 / 9', radius: '圆' },
+            { name: '下注筹码胶囊（内距 6/14）', size: '自适应 × 29', radius: 'r 999' }
+          ]
+        },
+        {
+          title: '牌桌与操作区',
+          rows: [
+            { name: '软陶轨 rail', size: '760 × 344', radius: 'r 999' },
+            { name: '内凹面 felt', size: '692 × 284', radius: 'r 999' },
+            { name: '内圈描边 ring', size: '664 × 260', radius: 'r 999' },
+            { name: '操作条 action bar', size: '满宽−68 × 120', radius: 'r 24' },
+            { name: '弃牌 / 跟注 / 主按钮', size: '120 / 170 / 210 × 60', radius: 'r 18' },
+            { name: '滑杆槽 / 滑块', size: '满宽 × 8 / 22', radius: 'r 999' },
+            { name: '快捷下注胶囊（内距 6/16）', size: '自适应 × 29', radius: 'r 10' }
+          ]
+        },
+        {
+          title: '外壳与弹窗',
+          rows: [
+            { name: '侧栏', size: '232 × 满高', radius: '—' },
+            { name: '侧栏条目 / 选中项', size: '满宽 × 32 / 34', radius: 'r 9 / 12' },
+            { name: '头部 logo', size: '44 × 44', radius: 'r 15' },
+            { name: '头部胶囊 / 图标钮', size: '自适应 × 35 / 38', radius: 'r 11' },
+            { name: '街段控件（容器内距 5）', size: '自适应 × 32', radius: 'r 12 / 内 9' },
+            { name: '弹窗 · 离开确认（净新增）', size: '380 宽', radius: 'r 26' },
+            { name: '弹窗遮罩', size: 'rgba(10,12,22,.66) + blur 3', radius: '—' }
+          ]
+        }
+      ],
+
+      shadowRows: [
+        { name: '软陶轨 rail', css: '24px 28px 56px rgba(0,0,0,.5), -16px -18px 40px rgba(255,255,255,.03), inset 0 2px 0 rgba(255,255,255,.08)', use: '唯一一处偏移阴影：光从左上来，桌子往右下投。别改方向', stage: '#1b1e30', demoBg: 'linear-gradient(160deg,#3a4168,#282d46)', demoRadius: '28px' },
+        { name: '内凹面 felt', css: 'inset 0 12px 26px rgba(0,0,0,.55), inset 0 -2px 0 rgba(255,255,255,.05)', use: '桌面往里凹的感觉全靠这条 inset', stage: '#2e3452', demoBg: '#212642', demoRadius: '28px' },
+        { name: '名牌 / 卡片 plate', css: '0 14px 24px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.08)', use: '所有浮起的容器：名牌、弹窗、头部胶囊', stage: '#1b1e30', demoBg: 'linear-gradient(180deg,#2c3252,#252a44)', demoRadius: '18px' },
+        { name: '牌 card-lift', css: '0 14px 22px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.9)', use: '公共牌；手牌用 0 16px 26px rgba(0,0,0,.5) 再抬一档', stage: '#212642', demoBg: '#fff', demoRadius: '11px' },
+        { name: '操作条 bar', css: '0 20px 36px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)', use: '底部操作条，全桌最重的一层', stage: '#171a2b', demoBg: 'linear-gradient(180deg,#2a3050,#232842)', demoRadius: '24px' },
+        { name: '主按钮 accent', css: '0 14px 24px rgba(217,242,75,.3), inset 0 1px 0 rgba(255,255,255,.5)', use: '柠檬主按钮；DSH 蓝按钮用 0 6px 14px rgba(77,107,254,.4)', stage: '#232842', demoBg: 'linear-gradient(180deg,#d9f24b,#bcd934)', demoRadius: '18px' },
+        { name: '内凹件 recess', css: 'inset 0 1px 3px rgba(0,0,0,.4)', use: '快捷下注胶囊、街段控件容器', stage: '#2a3050', demoBg: '#1e2237', demoRadius: '10px' },
+        { name: '弹窗 modal', css: '0 40px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.1)', use: '邀请 / 离开确认', stage: 'rgba(10,12,22,.9)', demoBg: 'linear-gradient(180deg,#2c3252,#242942)', demoRadius: '26px' }
+      ],
+
+      spacingRows: [
+        { v: '34', use: '桌面四边安全边：头部、状态行、操作条都贴这条线' },
+        { v: '26 / 96', use: '头部距顶 26，状态行距顶 96' },
+        { v: '224, 200', use: '软陶轨左上角坐标（桌面坐标系，不含侧栏）' },
+        { v: '262 / 326', use: '底池文字距顶 262，公共牌距顶 326' },
+        { v: '566', use: '你的手牌与名牌整行距顶' },
+        { v: '13', use: '公共牌之间；手牌之间 9' },
+        { v: '11', use: '名牌内元素间距（头像↔文字↔状态↔牌）' },
+        { v: '12', use: '操作区三个按钮之间' },
+        { v: '18 / 28', use: '操作条内距 18 上下 / 22 左右；左右两组间距 28' },
+        { v: '232 + 1208', use: '侧栏 + 桌面，1440 画布' }
+      ],
+
+      motionRows: [
+        { name: '发公共牌', dur: '260ms', ease: 'cubic-bezier(.2,.8,.2,1) · 每张错开 70ms' },
+        { name: '翻牌（背→面）', dur: '340ms', ease: 'rotateY 0→180 · cubic-bezier(.4,0,.2,1)' },
+        { name: '筹码飞入底池', dur: '420ms', ease: 'cubic-bezier(.35,.9,.25,1) · 落地缩 .92→1' },
+        { name: '底池数字滚动', dur: '500ms', ease: 'ease-out · 数字插值，不要淡入淡出' },
+        { name: '回合切换（名牌描边）', dur: '180ms', ease: 'ease-out · box-shadow 与 background 同时' },
+        { name: '倒计时环', dur: '线性 1s/格', ease: 'conic-gradient 角度线性递减' },
+        { name: '赢家高亮', dur: '600ms', ease: 'ease-in-out · 描边+外发光呼吸 1 次' },
+        { name: '弹窗进入', dur: '220ms', ease: 'opacity + scale .96→1 · cubic-bezier(.2,.8,.2,1)' },
+        { name: '操作条禁用', dur: '160ms', ease: 'opacity 1→.42 · linear' },
+        { name: '重连转圈', dur: '900ms', ease: 'linear infinite' }
+      ],
+
+      cardLayers: [
+        { n: '1', name: '卡底', detail: '正面纯白 #FFF；A/J/Q/K 满色卡面（花色色）＋ linear-gradient(158deg, rgba(255,255,255,.18), rgba(0,0,0,.34))' },
+        { n: '2', name: '顶部渐晕', detail: 'linear-gradient(178deg, currentColor, transparent 60%) opacity .15 — 让白卡不发飘' },
+        { n: '3', name: '出血棱面花色', detail: '尺寸＝卡宽 92%，右下出血 -9% / -8%。clipPath 裁出花色，内部叠三块 facet：右半 #000/.16、右下角 #000/.13、左上 #FFF/.17' },
+        { n: '4', name: '角标数字', detail: 'Archivo 800，字高＝卡宽 35%，line-height .82，距上 9% 距左 12%' },
+        { n: '5', name: '角标花色', detail: '卡宽 17%，压在数字正下方（距上 46%）' },
+        { n: '⚠', name: 'clipPath id', detail: '同一页出现多张牌时 id 必须唯一，否则后面的牌会套用第一张的花色轮廓' }
+      ],
+
+      suitSwatches: [
+        { label: '♠', hex: '#1C2A4A' },
+        { label: '♥', hex: '#F04E5C' },
+        { label: '♦', hex: '#2F7BFF' },
+        { label: '♣', hex: '#17A97C' }
+      ],
+
+      openItems: [
+        { n: '1', text: '桌上有三支蓝：DSH 蓝 #4D6BFE（品牌 / 选中）、♦ 亮蓝 #2F7BFF（牌面）、牌背蓝 #1C4CA8。真机上如果觉得糊，先把牌背换成深蓝素面，别动前两支。' },
+        { n: '2', text: '四色牌只在多人同时亮牌时才真正吃到收益。fourColorDeck 开关已经留好，上线前建议做一次 A/B 或至少放进设置项。' },
+        { n: '3', text: '现在全部文案是中文。英文比中文宽约 1.6 倍，「跟注 561K」这类按钮宽度写的是固定 170，切英文前需要改成 min-width + 内距自适应。locales.ts 里英文词条已经齐了。' },
+        { n: '4', text: '「离开确认」「断线重连」两个流程源码里还不存在，画面里的文案是设计提案，需要产品先拍板。「邀请好友」在源码里不是弹窗——头部按钮切 invited 态、文案换成「房间码已复制」，规范里按真实实现画。' },
+        { n: '5', text: '三张街的分段控件（翻牌前 / 翻牌 / 转牌 / 河牌）、倒计时环、亮牌结算也都是新增能力：PokerPanel.tsx 目前公共牌固定 3 明 2 暗，没有街的概念。工程排期时按新功能算，不是改样式。' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
